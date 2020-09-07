@@ -1,0 +1,2452 @@
+openapi: 3.0.1
+info:
+  title: Help API
+  version: "1.0"
+servers:
+- url: http://192.168.25.107:8081
+  description: Generated server url
+paths:
+  /categories/{pageId}:
+    get:
+      tags:
+      - category-controller
+      operationId: getCategories
+      parameters:
+      - name: pageId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageCategory'
+  /categories:
+    get:
+      tags:
+      - category-controller
+      operationId: getListCategories
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+    post:
+      tags:
+      - category-controller
+      operationId: addCategory
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Category'
+  /categories/category/{categoryId}:
+    get:
+      tags:
+      - category-controller
+      operationId: getCategory
+      parameters:
+      - name: categoryId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Category'
+    post:
+      tags:
+      - category-controller
+      operationId: modifyUnit
+      parameters:
+      - name: categoryId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Category'
+  /menu/:
+    get:
+      tags:
+      - menu-controller
+      operationId: getProducts
+      parameters:
+      - name: productName
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: category
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /menu/{productCode}:
+    get:
+      tags:
+      - menu-controller
+      operationId: getProduct
+      parameters:
+      - name: productCode
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+  /order-details/{orderId}:
+    post:
+      tags:
+      - order-details-controller
+      operationId: addOrderDetails
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrderWrap'
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Orders'
+  /orders/order/{orderId}:
+    get:
+      tags:
+      - orders-controller
+      operationId: getOrder
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Orders'
+    post:
+      tags:
+      - orders-controller
+      operationId: closeOrder
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Orders'
+  /orders:
+    post:
+      tags:
+      - orders-controller
+      operationId: addOrder
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Orders'
+  /orders/{pageId}:
+    get:
+      tags:
+      - orders-controller
+      operationId: getOrders
+      parameters:
+      - name: pageId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageOrders'
+  /products:
+    get:
+      tags:
+      - product-controller
+      operationId: getProducts_2
+      parameters:
+      - name: productName
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: category
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      tags:
+      - product-controller
+      operationId: addProduct
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+  /products/product/{productCode}:
+    get:
+      tags:
+      - product-controller
+      operationId: getProduct_1
+      parameters:
+      - name: productCode
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+    post:
+      tags:
+      - product-controller
+      operationId: modifyProduct
+      parameters:
+      - name: productCode
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+  /products/{pageId}:
+    get:
+      tags:
+      - product-controller
+      operationId: getProducts_1
+      parameters:
+      - name: pageId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: productName
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: category
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageProduct'
+  /documents/{pageId}:
+    get:
+      tags:
+      - stock-document-controller
+      operationId: getDocuments
+      parameters:
+      - name: pageId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageStockDocument'
+  /documents/document/{docId}:
+    get:
+      tags:
+      - stock-document-controller
+      operationId: getDocument
+      parameters:
+      - name: docId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StockDocument'
+  /documents:
+    post:
+      tags:
+      - stock-document-controller
+      operationId: addDocument
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StockDocument'
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StockDocument'
+  /inventory/{docId}:
+    post:
+      tags:
+      - stock-inventory-controller
+      operationId: addInventories
+      parameters:
+      - name: docId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StockInventory'
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StockDocument'
+  /items/item/{id}:
+    get:
+      tags:
+      - stock-item-balance-controller
+      operationId: getItem
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StockItemBalance'
+    post:
+      tags:
+      - stock-item-balance-controller
+      operationId: updateItem
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StockItemBalance'
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StockItemBalance'
+  /items:
+    get:
+      tags:
+      - stock-item-balance-controller
+      operationId: getAllItems
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: category
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StockItemBalance'
+    post:
+      tags:
+      - stock-item-balance-controller
+      operationId: addItem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StockItemBalance'
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StockItemBalance'
+  /items/delete/{id}:
+    post:
+      tags:
+      - stock-item-balance-controller
+      operationId: deleteItem
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: boolean
+  /tables/table/{tableId}:
+    get:
+      tags:
+      - tables-controller
+      operationId: getTable
+      parameters:
+      - name: tableId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TablesDTO'
+    post:
+      tags:
+      - tables-controller
+      operationId: updateTable
+      parameters:
+      - name: tableId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TablesDTO'
+  /tables/{pageId}:
+    get:
+      tags:
+      - tables-controller
+      operationId: getAllTables
+      parameters:
+      - name: pageId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: reserved
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: username
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageEatingPlace'
+  /tables:
+    post:
+      tags:
+      - tables-controller
+      operationId: addNewTable
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TablesDTO'
+  /tables/delete:
+    post:
+      tags:
+      - tables-controller
+      operationId: deleteTable
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: boolean
+  /units/{pageId}:
+    get:
+      tags:
+      - units-controller
+      operationId: getUnits
+      parameters:
+      - name: pageId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageUnits'
+  /units/unit/{unitId}:
+    get:
+      tags:
+      - units-controller
+      operationId: getUnit
+      parameters:
+      - name: unitId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Units'
+    post:
+      tags:
+      - units-controller
+      operationId: modifyUnit_1
+      parameters:
+      - name: unitId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Units'
+  /units:
+    get:
+      tags:
+      - units-controller
+      operationId: getUnitsList
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Units'
+    post:
+      tags:
+      - units-controller
+      operationId: addUnit
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Units'
+  /users:
+    post:
+      tags:
+      - user-controller
+      operationId: addUser
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+  /users/{pageId}:
+    get:
+      tags:
+      - user-controller
+      operationId: getAllUsers
+      parameters:
+      - name: pageId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageUserDTO'
+  /users/{username}:
+    post:
+      tags:
+      - user-controller
+      operationId: setUserUpdate
+      parameters:
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ""
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ""
+      - name: lastname
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ""
+      - name: role
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ""
+      - name: deleted
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+  /users/user/{username}:
+    get:
+      tags:
+      - user-controller
+      operationId: getUser
+      parameters:
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "409":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "400":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "404":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "406":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "403":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+components:
+  schemas:
+    ErrorDetails:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        category:
+          type: string
+    PageCategory:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        sort:
+          $ref: '#/components/schemas/Sort'
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        empty:
+          type: boolean
+    Pageable:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+        offset:
+          type: integer
+          format: int64
+    Sort:
+      type: object
+      properties:
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+        empty:
+          type: boolean
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        productName:
+          type: string
+        inStockQty:
+          type: number
+          format: double
+        activeStatus:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        restaurant:
+          type: boolean
+        unit:
+          $ref: '#/components/schemas/Units'
+        category:
+          $ref: '#/components/schemas/Category'
+    Units:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        unitName:
+          type: string
+    OrderWrap:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int64
+        productId:
+          type: integer
+          format: int64
+        qty:
+          type: number
+          format: double
+    OrderDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        order:
+          $ref: '#/components/schemas/Orders'
+        product:
+          $ref: '#/components/schemas/Product'
+        quantity:
+          type: number
+          format: double
+    Orders:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int64
+        tableId:
+          type: integer
+          format: int32
+        waiterUsername:
+          type: string
+        waiterName:
+          type: string
+        orderStatus:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        orderDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDetail'
+    PageOrders:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        sort:
+          $ref: '#/components/schemas/Sort'
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Orders'
+        empty:
+          type: boolean
+    PageProduct:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        sort:
+          $ref: '#/components/schemas/Sort'
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        empty:
+          type: boolean
+    PageStockDocument:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        sort:
+          $ref: '#/components/schemas/Sort'
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/StockDocument'
+        empty:
+          type: boolean
+    StockDocument:
+      type: object
+      properties:
+        documentId:
+          type: integer
+          format: int64
+        documentType:
+          type: string
+        date:
+          type: string
+          format: date-time
+        inventories:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/StockInventory'
+    StockInventory:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        stockDocument:
+          $ref: '#/components/schemas/StockDocument'
+        productId:
+          type: integer
+          format: int64
+        productName:
+          type: string
+        amount:
+          type: number
+          format: double
+    StockItemBalance:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        unit:
+          $ref: '#/components/schemas/Units'
+        category:
+          $ref: '#/components/schemas/Category'
+        inStockQty:
+          type: number
+          format: double
+        productId:
+          type: integer
+          format: int64
+        restaurant:
+          type: boolean
+    TablesDTO:
+      type: object
+      properties:
+        table_id:
+          type: integer
+          format: int32
+        reserved:
+          type: boolean
+        waiter_name:
+          type: string
+        username:
+          type: string
+    EatingPlace:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        reserved:
+          type: boolean
+        waiterUsername:
+          type: string
+        waiterName:
+          type: string
+        active:
+          type: boolean
+    PageEatingPlace:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        sort:
+          $ref: '#/components/schemas/Sort'
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/EatingPlace'
+        empty:
+          type: boolean
+    PageUnits:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        sort:
+          $ref: '#/components/schemas/Sort'
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Units'
+        empty:
+          type: boolean
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        username:
+          type: string
+        name:
+          type: string
+        lastname:
+          type: string
+        role:
+          type: string
+    PageUserDTO:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        sort:
+          $ref: '#/components/schemas/Sort'
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDTO'
+        empty:
+          type: boolean
