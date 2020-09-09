@@ -17,9 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -145,10 +143,27 @@ public class ProductService {
 
     public List<Product> getMenu(){
         try {
-            return productDao.findAllByRestaurantIsTrue();
+            List<Product> productList = productDao.findAllByRestaurantIsTrue();
+            return productList;
         }catch (Exception ex){
             throw new IllegalArgumentException(ex.getMessage());
         }
+    }
+
+    private Map<String, List<Product>> filterCategory(List<Product> products){
+        Map<String, List<Product>> filter = new HashMap<>();
+        for (Product product: products) {
+            if (filter.containsKey(product.getCategory().getCategory())){
+                List<Product> temp = filter.get(product.getCategory().getCategory());
+                temp.add(product);
+                filter.put(product.getCategory().getCategory(), temp);
+            }else {
+                List<Product> temp = new ArrayList<>();
+                temp.add(product);
+                filter.put(product.getCategory().getCategory(), temp);
+            }
+        }
+        return filter;
     }
 
     public List<Product> getMenu(String productName, Integer category) {
@@ -219,5 +234,9 @@ public class ProductService {
             throw new IllegalArgumentException(ex.getLocalizedMessage());
         }
 
+    }
+
+    public Map<String, List<Product>> getMenuOrder() {
+        return this.filterCategory(this.getMenu());
     }
 }

@@ -28,6 +28,14 @@ public class MenuController {
         }
     }
 
+    @GetMapping("/order")
+    @PreAuthorize("hasAuthority('product:read')")
+    public @ResponseBody
+    Map<String, List<Product>> getProducts(){
+        return productService.getMenuOrder();
+    }
+
+
     @GetMapping("/{productCode}")
     @PreAuthorize("hasAuthority('product:read')")
     public @ResponseBody
