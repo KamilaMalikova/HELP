@@ -33,19 +33,19 @@ public class ProductService {
 
     public Product addProduct(Map<String, String> productParams){
         try {
+            System.out.println(productParams);
             Product product = new Product();
             product.setId(productDao.count() + 1);
             try {
                 product.setCategory(categoryDao.findCategoryById(Integer.parseInt(productParams.get("category"))).get());
+                product.setUnit(unitsDao.findUnitsById(Integer.parseInt(productParams.get("unit"))).get());
             }catch (Exception ex2) {throw new NotFoundException(ex2.getLocalizedMessage());}
+
             product.setCreatedAt(LocalDateTime.now());
             product.setInStockQty(Double.parseDouble(productParams.get("inStockQty")));
             product.setActiveStatus(true);
             product.setRestaurant(productParams.get("restaurant").equals("1"));
             product.setProductName(productParams.get("productName"));
-            try {
-                product.setUnit(unitsDao.findUnitsById(Integer.parseInt(productParams.get("unit"))).get());
-            }catch (Exception ex2){throw new NotFoundException(ex2.getLocalizedMessage()); }
 
             return productDao.save(product);
         }catch (Exception ex){
@@ -85,7 +85,7 @@ public class ProductService {
     public Product updateProduct(long productCode, Map<String, String> parameters){
         try {
             Product product = productDao.findProductById(productCode).get();
-            if (parameters.containsKey("active")) product.setActiveStatus(parameters.get("active") == "1");
+            if (parameters.containsKey("active")) product.setActiveStatus(parameters.get("active").equals("1"));
             if (parameters.containsKey("productName")) product.setProductName(parameters.get("productName"));
             if (parameters.containsKey("category")){
                 try {
@@ -113,20 +113,20 @@ public class ProductService {
     }
 
 
-    public Page<Product> getProducts(int page, String productName, Integer category, boolean activeStatus) {
+    public Page<Product> getProducts(int page, String productName, Integer category, boolean activeStatus, boolean restaurant) {
         try {
             if (productName == null){
                 Category category1 = categoryDao.findCategoryById(category).get();
-                return productDao.findAllByCategoryAndActiveStatus(LocalPagination.getDefaultPageable(page), category1, activeStatus);
+                return productDao.findAllByCategoryAndActiveStatusAndRestaurant(LocalPagination.getDefaultPageable(page), category1, activeStatus, restaurant);
             }else if (category == null){
                 try {
-                    return productDao.findAllByProductNameContainingAndActiveStatus(LocalPagination.getDefaultPageable(page), productName, activeStatus);
+                    return productDao.findAllByProductNameContainingAndActiveStatusAndRestaurant(LocalPagination.getDefaultPageable(page), productName, activeStatus, restaurant);
                 }catch (Exception ex){
                     throw new IllegalArgumentException(ex.getLocalizedMessage());
                 }
             }else {
                 Category category1 = categoryDao.findCategoryById(category).get();
-                return productDao.findAllByProductNameContainingAndCategoryAndActiveStatus(LocalPagination.getDefaultPageable(page), productName, category1, activeStatus);
+                return productDao.findAllByProductNameContainingAndCategoryAndActiveStatusAndRestaurant(LocalPagination.getDefaultPageable(page), productName, category1, activeStatus, restaurant);
             }
         }catch (Exception ex){
             throw new IllegalArgumentException(ex.getLocalizedMessage());
@@ -192,28 +192,28 @@ public class ProductService {
         }
     }
 
-    public List<Product> getProducts(boolean active) {
+    public List<Product> getProducts(boolean active, boolean restaurant) {
         try {
-            return productDao.findAllByActiveStatus(active);
+            return productDao.findAllByActiveStatusAndRestaurant(active, restaurant);
         }catch (Exception ex){
             throw new IllegalArgumentException(ex.getLocalizedMessage());
         }
     }
 
-    public List<Product> getProducts(String productName, Integer category, boolean active) {
+    public List<Product> getProductsList(String productName, Integer category, boolean active, boolean restaurant) {
         try {
             if (productName == null){
                 Category category1 = categoryDao.findCategoryById(category).get();
-                return productDao.findAllByCategoryAndActiveStatus(category1, active);
+                return productDao.findAllByCategoryAndActiveStatusAndRestaurant(category1, active, restaurant);
             }else if (category == null){
                 try {
-                    return productDao.findAllByProductNameContainingAndActiveStatus(productName, active);
+                    return productDao.findAllByProductNameContainingAndActiveStatusAndRestaurant(productName, active, restaurant);
                 }catch (Exception ex){
                     throw new IllegalArgumentException(ex.getLocalizedMessage());
                 }
             }else {
                 Category category1 = categoryDao.findCategoryById(category).get();
-                return productDao.findAllByProductNameContainingAndCategoryAndActiveStatus(productName, category1, active);
+                return productDao.findAllByProductNameContainingAndCategoryAndActiveStatusAndRestaurant(productName, category1, active, restaurant);
             }
         }catch (Exception ex){
             throw new IllegalArgumentException(ex.getLocalizedMessage());

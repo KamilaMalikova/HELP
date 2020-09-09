@@ -16,7 +16,7 @@ public class MenuController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/")
+    @GetMapping
     @PreAuthorize("hasAuthority('product:read')")
     public @ResponseBody
     List<Product> getProducts(@RequestParam(value = "productName", required = false) String productName,

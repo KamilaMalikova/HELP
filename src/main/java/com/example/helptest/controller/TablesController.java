@@ -70,6 +70,7 @@ public class TablesController {
         }
     }
     @PostMapping("/delete")
+    @PreAuthorize("hasAuthority('table:write')")
     public @ResponseBody
     boolean deleteTable(@RequestBody  Map<String, String> bodyParam){
         int count = Integer.parseInt(bodyParam.get("count"));

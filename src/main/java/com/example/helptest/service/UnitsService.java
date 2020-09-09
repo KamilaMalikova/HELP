@@ -1,6 +1,7 @@
 package com.example.helptest.service;
 
 import com.example.helptest.config.LocalPagination;
+import com.example.helptest.exception.ConstraintException;
 import com.example.helptest.exception.DuplicateException;
 import com.example.helptest.exception.IllegalArgumentException;
 import com.example.helptest.exception.NotFoundException;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Map;
 
@@ -20,12 +23,17 @@ public class UnitsService {
     private UnitsDao unitsDao;
 
     public Units addNewUnit(String unit){
-        try {
-            Units units = new Units(unitsDao.count()+1, unit);
+      //  try {
+        int id;
+        Units temp =  unitsDao.findDistinctTopByOrderByIdDesc();
+        if (temp == null) id = 1;
+        else id = temp.getId()+1;
+
+            Units units = new Units(id, unit);
             return unitsDao.save(units);
-        }catch (Exception ex){
-            throw new DuplicateException(ex.getLocalizedMessage());
-        }
+//        }catch (Exception ex){
+//            throw new DuplicateException(ex.getLocalizedMessage());
+//        }
     }
 
     public Page<Units> getUnits(int page){
@@ -60,7 +68,7 @@ public class UnitsService {
             unitsDao.delete(unit);
             return unit;
         }catch (Exception ex){
-            throw new NotFoundException(ex.getLocalizedMessage());
+            throw new ConstraintException(ex.getMessage());
         }
     }
 

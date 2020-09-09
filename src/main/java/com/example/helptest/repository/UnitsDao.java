@@ -20,4 +20,6 @@ public interface UnitsDao extends CrudRepository<Units, Integer> {
     Optional<Units> findUnitsById(int id);
 
     Optional<Units> findUnitsByUnitName(String unit);
+
+    Units findDistinctTopByOrderByIdDesc();
 }

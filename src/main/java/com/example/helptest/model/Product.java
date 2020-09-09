@@ -23,11 +23,11 @@ public class Product implements Serializable {
     private boolean restaurant;
 
     @ManyToOne
-    @JoinColumn(name = "unit", referencedColumnName = "unitName")
+    @JoinColumn(name = "unit", referencedColumnName = "id")
     protected Units unit;
 
     @ManyToOne
-    @JoinColumn(name = "category", referencedColumnName = "category")
+    @JoinColumn(name = "category", referencedColumnName = "id")
     protected Category category;
 
     public Product() {

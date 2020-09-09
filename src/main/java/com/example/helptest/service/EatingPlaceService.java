@@ -83,6 +83,8 @@ public class EatingPlaceService {
     public TablesDTO setReserved(int table_id, User waiter){
         EatingPlace eatingPlace = eatingPlaceDao.findEatingPlaceById(table_id).get();
         if (eatingPlace != null){
+            if (eatingPlace.isReserved()) throw new IllegalArgumentException("Table is already reserved!");
+
             eatingPlace.setReserved(true);
             eatingPlace.setWaiterUsername(waiter.getUsername());
             eatingPlace.setWaiterName(waiter.getName()+" "+waiter.getLastname());

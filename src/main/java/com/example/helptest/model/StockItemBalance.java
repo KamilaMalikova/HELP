@@ -10,11 +10,11 @@ public class StockItemBalance{
     protected String name;
 
     @ManyToOne
-    @JoinColumn(name = "unit", referencedColumnName = "unitName")
+    @JoinColumn(name = "unit", referencedColumnName = "id")
     protected Units unit;
 
     @ManyToOne
-    @JoinColumn(name = "category", referencedColumnName = "category")
+    @JoinColumn(name = "category", referencedColumnName = "id")
     protected Category category;
 
     private double inStockQty;

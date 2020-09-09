@@ -6,6 +6,7 @@ import com.example.helptest.model.Units;
 import com.example.helptest.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,12 +20,14 @@ public class CategoryController {
 
 
     @GetMapping("/{pageId}")
+    @PreAuthorize("hasAuthority('category:read')")
     public @ResponseBody
     Page<Category> getCategories(@PathVariable("pageId") int page){
         return categoryService.getCategories(page);
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('category:read')")
     public @ResponseBody
     List<Category> getListCategories(){
         return categoryService.getListCategories();
@@ -36,6 +39,7 @@ public class CategoryController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('category:add')")
     public @ResponseBody
     Category addCategory(@RequestBody Map<String, String> bodyParams){
         try {
@@ -46,6 +50,7 @@ public class CategoryController {
     }
 
     @PostMapping("/category/{categoryId}")
+    @PreAuthorize("hasAuthority('category:write')")
     public @ResponseBody
     Category modifyUnit(@PathVariable("categoryId") int unitId, @RequestBody(required = false) Map<String, String> bodyParams){
 

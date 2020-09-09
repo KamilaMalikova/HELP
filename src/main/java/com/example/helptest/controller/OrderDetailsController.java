@@ -5,6 +5,7 @@ import com.example.helptest.model.OrderWrap;
 import com.example.helptest.model.Orders;
 import com.example.helptest.service.OrderDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class OrderDetailsController {
 
     }
     @PostMapping("/{orderId}")
+    @PreAuthorize("hasAuthority('order:add')")
     public //@ResponseBody
     Orders addOrderDetails(@PathVariable("orderId") long orderId
                         ,@RequestBody List<OrderWrap> orderWrapList

@@ -1,6 +1,7 @@
 package com.example.helptest.service;
 
 import com.example.helptest.config.LocalPagination;
+import com.example.helptest.exception.ConstraintException;
 import com.example.helptest.exception.DuplicateException;
 import com.example.helptest.exception.IllegalArgumentException;
 import com.example.helptest.exception.NotFoundException;
@@ -20,7 +21,11 @@ public class CategoryService {
 
     public Category addNewCategory(String categoryName){
         try {
-            Category category = new Category(categoryDao.count()+1, categoryName);
+            int id;
+            Category temp = categoryDao.findDistinctTopByOrderByIdDesc();
+            if (temp == null) id = 1;
+            else id = temp.getId()+1;
+            Category category = new Category(id, categoryName);
             return categoryDao.save(category);
         }catch (Exception ex){
             throw new DuplicateException(ex.getLocalizedMessage());
@@ -66,7 +71,7 @@ public class CategoryService {
             categoryDao.delete(category);
             return category;
         }catch (Exception ex){
-            throw new NotFoundException(ex.getLocalizedMessage());
+            throw new ConstraintException(ex.getMessage());
         }
     }
 }

@@ -19,4 +19,6 @@ public interface CategoryDao extends CrudRepository<Category, Integer> {
     Optional<Category> findCategoryById(int id);
 
     Optional<Category> findCategoryByCategory(String category);
+
+    Category findDistinctTopByOrderByIdDesc();
 }

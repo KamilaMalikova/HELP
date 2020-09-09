@@ -17,11 +17,11 @@ public interface ProductDao extends CrudRepository<Product, Integer> {
 
     Page<Product> findAllByActiveStatus(Pageable pageable, boolean activeStatus);
 
-    Page<Product> findAllByProductNameContainingAndActiveStatus(Pageable pageable, String productName, boolean activeStatus);
+    Page<Product> findAllByProductNameContainingAndActiveStatusAndRestaurant(Pageable pageable, String productName, boolean activeStatus, boolean restaurant);
 
-    Page<Product> findAllByCategoryAndActiveStatus(Pageable pageable, Category category, boolean activeStatus);
+    Page<Product> findAllByCategoryAndActiveStatusAndRestaurant(Pageable pageable, Category category, boolean activeStatus, boolean restaurant);
 
-    Page<Product> findAllByProductNameContainingAndCategoryAndActiveStatus(Pageable pageable, String productName ,Category category, boolean activeStatus);
+    Page<Product> findAllByProductNameContainingAndCategoryAndActiveStatusAndRestaurant(Pageable pageable, String productName ,Category category, boolean activeStatus, boolean restaurant);
 
     Optional<Product> findProductById(long id);
 
@@ -29,15 +29,21 @@ public interface ProductDao extends CrudRepository<Product, Integer> {
 
     List<Product> findAllByProductNameContainingAndRestaurantIsTrue(String productName);
 
+    List<Product> findAllByProductNameContainingAndRestaurantIsTrueOrderByCategoryAsc(String productName);
+
     List<Product> findAllByProductNameContainingAndCategoryAndRestaurantIsTrue(String productName, Category category);
+
+    List<Product> findAllByProductNameContainingAndCategoryAndRestaurantIsTrueOrderByCategoryAsc(String productName, Category category);
 
     List<Product> findAllByCategoryAndRestaurantIsTrue(Category category);
 
-    List<Product> findAllByActiveStatus(boolean active);
+    List<Product> findAllByActiveStatusAndRestaurant(boolean active, boolean restaurant);
 
-    List<Product> findAllByCategoryAndActiveStatus(Category category1, boolean active);
+    List<Product> findAllByCategoryAndActiveStatusAndRestaurant(Category category1, boolean active, boolean restaurant);
 
-    List<Product> findAllByProductNameContainingAndActiveStatus(String productName, boolean active);
+    List<Product> findAllByProductNameContainingAndActiveStatusAndRestaurant(String productName, boolean active, boolean restaurant);
 
-    List<Product> findAllByProductNameContainingAndCategoryAndActiveStatus(String productName, Category category1, boolean active);
+    List<Product> findAllByProductNameContainingAndCategoryAndActiveStatusAndRestaurant(String productName, Category category1, boolean active, boolean restaurant);
+
+    List<Product> findAllByProductNameContainingAndRestaurantIsTrueOrderByCategory(String productName);
 }

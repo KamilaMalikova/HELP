@@ -5,6 +5,7 @@ import com.example.helptest.model.Units;
 import com.example.helptest.service.UnitsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +20,14 @@ public class UnitsController {
 
 
     @GetMapping("/{pageId}")
+    @PreAuthorize("hasAuthority('unit:read')")
     public @ResponseBody
     Page<Units> getUnits(@PathVariable("pageId") int page){
         return unitsService.getUnits(page);
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('unit:read')")
     public @ResponseBody
     List<Units> getUnitsList(){
         return unitsService.getUnitsList();
@@ -32,12 +35,14 @@ public class UnitsController {
 
 
     @GetMapping("/unit/{unitId}")
+    @PreAuthorize("hasAuthority('unit:read')")
     public @ResponseBody
     Units getUnit(@PathVariable("unitId") int unitId){
         return unitsService.getUnit(unitId);
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('unit:add')")
     public @ResponseBody
     Units addUnit(@RequestBody Map<String, String> bodyParams){
         try {
@@ -49,6 +54,7 @@ public class UnitsController {
     }
 
     @PostMapping("/unit/{unitId}")
+    @PreAuthorize("hasAuthority('unit:write')")
     public @ResponseBody
     Units modifyUnit(@PathVariable("unitId") int unitId, @RequestBody(required = false) Map<String, String> bodyParams){
 

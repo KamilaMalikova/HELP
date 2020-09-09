@@ -46,4 +46,11 @@ public class ExceptionAdvice {
         ErrorDetails response = new ErrorDetails(new Date(), se.getMessage());
         return response;
     }
+
+    @ExceptionHandler(ConstraintException.class)
+    @ResponseStatus(HttpStatus.FAILED_DEPENDENCY)
+    public ErrorDetails handleConstraintException(ConstraintException se) {
+        ErrorDetails response = new ErrorDetails(new Date(), se.getMessage());
+        return response;
+    }
 }

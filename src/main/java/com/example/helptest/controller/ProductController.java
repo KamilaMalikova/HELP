@@ -23,11 +23,12 @@ public class ProductController {
     Page<Product> getProducts(@PathVariable("pageId") int page,
                               @RequestParam(value = "productName", required = false) String productName,
                               @RequestParam(value = "category", required = false) Integer category,
-                              @RequestParam(value = "active", required = false, defaultValue = "1") boolean active){
+                              @RequestParam(value = "active", required = false, defaultValue = "1") boolean active,
+                              @RequestParam(value = "restaurant", required = false, defaultValue = "1") boolean restaurant){
         if (productName == null && category == null){
           return productService.getProducts(page, active);
         }else {
-          return productService.getProducts(page, productName, category, active);
+          return productService.getProducts(page, productName, category, active, restaurant);
         }
     }
 
@@ -36,11 +37,12 @@ public class ProductController {
     public @ResponseBody
     List<Product> getProducts(@RequestParam(value = "productName", required = false) String productName,
                               @RequestParam(value = "category", required = false) Integer category,
-                              @RequestParam(value = "active", required = false, defaultValue = "1") boolean active){
+                              @RequestParam(value = "active", required = false, defaultValue = "1") boolean active,
+                              @RequestParam(value = "restaurant", required = false, defaultValue = "1") boolean restaurant){
         if (productName == null && category == null){
-            return productService.getProducts(active);
+            return productService.getProducts(active, restaurant);
         }else {
-            return productService.getProducts(productName, category, active);
+            return productService.getProductsList(productName, category, active, restaurant);
         }
     }
 

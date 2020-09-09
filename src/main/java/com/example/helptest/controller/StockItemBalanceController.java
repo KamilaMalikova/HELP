@@ -16,6 +16,7 @@ public class StockItemBalanceController {
     private StockItemBalanceService stockItemBalanceService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('product:add')")
     public @ResponseBody
     StockItemBalance addItem(@RequestBody StockItemBalance stockItemBalance){
         return stockItemBalanceService.addItem(stockItemBalance);
