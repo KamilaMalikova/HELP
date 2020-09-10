@@ -35,23 +35,42 @@ public class OrdersService {
         String username = ""; // not required
         LocalDateTime start = LocalDateTime.of(2020, 1, 1, 0, 0); // not required
         LocalDateTime end = LocalDateTime.now(); // not required
+        int tableId = 0;
 
         if (filterParams.containsKey("status")) status = filterParams.get("status");
         if (filterParams.containsKey("username")) username = filterParams.get("username");
         if (filterParams.containsKey("start")) start = LocalDateTime.parse(filterParams.get("start"));
         if (filterParams.containsKey("end")) end = LocalDateTime.parse(filterParams.get("end"));
+        if (filterParams.containsKey("tableId")) tableId = Integer.parseInt(filterParams.get("tableId"));
 
-        if (status.isBlank() || status.isEmpty()){
-            if (username.isEmpty() || username.isBlank()){
-                return ordersDao.findAllByCreatedAtBetween(pageable, start, end);
-            }else {
-                return ordersDao.findAllByCreatedAtBetweenAndWaiterUsername(pageable ,start, end, username);
+        if (tableId == 0){
+            if (status.isBlank() || status.isEmpty()){
+                if (username.isEmpty() || username.isBlank()){
+                    return ordersDao.findAllByCreatedAtBetween(pageable, start, end);
+                }else {
+                    return ordersDao.findAllByCreatedAtBetweenAndWaiterUsername(pageable ,start, end, username);
+                }
+            }else{
+                if (username.isEmpty() || username.isBlank()){
+                    return ordersDao.findAllByCreatedAtBetweenAndOrderStatus(pageable, start, end, status);
+                }else {
+                    return ordersDao.findAllByCreatedAtBetweenAndWaiterUsernameAndOrderStatus(pageable ,start, end, username, status);
+                }
             }
-        }else{
-            if (username.isEmpty() || username.isBlank()){
-                return ordersDao.findAllByCreatedAtBetweenAndOrderStatus(pageable, start, end, status);
-            }else {
-                return ordersDao.findAllByCreatedAtBetweenAndWaiterUsernameAndOrderStatus(pageable ,start, end, username, status);
+        }
+        else {
+            if (status.isBlank() || status.isEmpty()){
+                if (username.isEmpty() || username.isBlank()){
+                    return ordersDao.findAllByCreatedAtBetweenAndTableId(pageable, start, end, tableId);
+                }else {
+                    return ordersDao.findAllByCreatedAtBetweenAndWaiterUsernameAndTableId(pageable ,start, end, username, tableId);
+                }
+            }else{
+                if (username.isEmpty() || username.isBlank()){
+                    return ordersDao.findAllByCreatedAtBetweenAndOrderStatusAndTableId(pageable, start, end, status, tableId);
+                }else {
+                    return ordersDao.findAllByCreatedAtBetweenAndWaiterUsernameAndOrderStatusAndTableId(pageable ,start, end, username, status, tableId);
+                }
             }
         }
 
@@ -84,6 +103,9 @@ public class OrdersService {
         if (!eatingPlace.get().isActive() || !eatingPlace.get().isReserved()) throw new IllegalArgumentException("Table is not active or not reserved!");
         if (!eatingPlace.get().getWaiterUsername().equals(waiterUsername)) throw new IllegalArgumentException("Another waiter serves the table!");
 
+        Optional<Orders> openedOrder = ordersDao.findOrdersByOrderStatusAndTableId(OrderStatus.CREATED.name(), tableId);
+        if (!openedOrder.isEmpty()) throw new IllegalArgumentException("Table is reserved");
+
         Orders order = new Orders(tableId, waiterUsername);
         order.setOrderId(ordersDao.count()+1);
         order.setCreatedAt(LocalDateTime.now());
@@ -96,11 +118,14 @@ public class OrdersService {
         try {
             Orders order = ordersDao.findOrdersByOrderId(orderId).get();
             order.setOrderStatus(OrderStatus.CLOSED.name());
+
             EatingPlace eatingPlace = eatingPlaceDao.findEatingPlaceById(order.getTableId()).get();
             eatingPlace.setWaiterName("free");
             eatingPlace.setReserved(false);
             eatingPlace.setWaiterUsername("null");
+
             eatingPlaceDao.save(eatingPlace);
+
             return ordersDao.save(order);
         }catch (Exception ex){
             throw new NotFoundException(ex.getLocalizedMessage());

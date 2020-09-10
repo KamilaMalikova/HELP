@@ -1,0 +1,104 @@
+[
+    {
+        "id":"1",
+        "productId":"1",
+        "productName":"Fanta 1.5L",
+        "amount":5
+    },
+    {
+        "id":"1",
+        "productId":"2",
+        "productName":"Колбаса",
+        "amount":5
+    }
+]
+
+
+{
+    "documentId":1,
+    "documentType":"In"
+}
+
+
+//Products : add
+POST
+{
+    "productName":"Шашлык королевский",
+    "inStockQty":"0.0",
+    "restaurant":"1",
+    "unit":"3",
+    "category":"2"
+}
+
+//Products: get filter (page)
+Get
+192.168.25.107:8081/products/1?productName=леп&category=4
+
+//Products: get filter (list)
+GET
+192.168.25.107:8081/products?productName=леп&category=4
+
+//Products: get product 
+GET
+192.168.25.107:8081/products/product/2
+
+//Product: update product
+POST
+192.168.25.107:8081/products/product/2
+{
+    "productName":"Сыр",
+    "restaurant":"1",
+    "inStockQty":"0.00",
+    "unit":"1",
+    "category":"1",
+    "active":"0"
+}
+
+//Work with orders
+//Reserve table
+POST
+192.168.25.107:8080/tables/table/10
+{
+    "username":"newuser",
+    "reserved":"1"
+}
+
+(set table not reserved)
+POST
+192.168.25.107:8080/tables/table/10
+{
+    "username":"newuser",
+    "reserved":"0"
+}
+
+//Create order
+POST
+192.168.25.107:8080/orders
+{
+    "tableId":"15",
+    "username":"newuser"
+}
+
+
+//Create order-detail
+POST
+192.168.25.107:8080/order-details/2
+[
+    {
+        "orderId":2,
+        "productId":3,
+        "qty":3
+    },
+    {
+        "orderId":2,
+        "productId":4,
+        "qty":2
+    }
+]
+
+//Close order
+POST
+192.168.25.107:8080/orders/order/2
+{
+    "status":"CLOSED"
+}

@@ -21,15 +21,23 @@ public interface OrdersDao extends CrudRepository<Orders, Integer> {
 
     Page<Orders> findAllByCreatedAtBetweenAndWaiterUsername(Pageable pageable, LocalDateTime start, LocalDateTime end, String waiterUsername);
 
+    Page<Orders> findAllByCreatedAtBetweenAndWaiterUsernameAndTableId(Pageable pageable, LocalDateTime start, LocalDateTime end, String waiterUsername, int tableId);
+
     Page<Orders> findAllByCreatedAtBetween(Pageable pageable,LocalDateTime start, LocalDateTime end);
 
+    Page<Orders> findAllByCreatedAtBetweenAndTableId(Pageable pageable,LocalDateTime start, LocalDateTime end, int tableId);
+
     Page<Orders> findAllByCreatedAtBetweenAndOrderStatus(Pageable pageable,LocalDateTime start, LocalDateTime end, String orderStatus);
+
+    Page<Orders> findAllByCreatedAtBetweenAndOrderStatusAndTableId(Pageable pageable,LocalDateTime start, LocalDateTime end, String orderStatus, int tableId);
 
     Page<Orders> findAllByCreatedAtBetweenAndOrderStatusLike(Pageable pageable, LocalDateTime start, LocalDateTime end, String status);
 
     Page<Orders> findAllByCreatedAtBetweenAndWaiterUsernameAndOrderStatus(Pageable pageable, LocalDateTime start, LocalDateTime end, String waiterUsername, String status);
 
+    Page<Orders> findAllByCreatedAtBetweenAndWaiterUsernameAndOrderStatusAndTableId(Pageable pageable, LocalDateTime start, LocalDateTime end, String waiterUsername, String status, int tableId);
+
     Optional<Orders> findOrdersByOrderId(long orderId);
 
-
+    Optional<Orders> findOrdersByOrderStatusAndTableId(String status, int tableId);
 }

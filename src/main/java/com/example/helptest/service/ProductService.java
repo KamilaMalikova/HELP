@@ -102,7 +102,7 @@ public class ProductService {
                 }
             }
             if (parameters.containsKey("quantity")) product.setInStockQty(Double.parseDouble(parameters.get("quantity")));
-            if (parameters.containsKey("restaurant")) product.setRestaurant(parameters.get("restaurant") == "1");
+            if (parameters.containsKey("restaurant")) product.setRestaurant(parameters.get("restaurant").equals("1"));
             return productDao.save(product);
         }catch (Exception ex){
             throw new NotFoundException(ex.getLocalizedMessage());

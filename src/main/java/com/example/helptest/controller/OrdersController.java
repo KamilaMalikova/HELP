@@ -29,20 +29,16 @@ public class OrdersController {
         int tableId;
         String username;
         if (bodyParams.size() != 2) throw new IllegalArgumentException("Require two params in body");
-        try{
-            tableId = Integer.parseInt(bodyParams.get("tableId"));
-            username = bodyParams.get("username");
-            return ordersService.addOrder(tableId, username);
-        }catch (Exception ex){
-            throw new IllegalArgumentException("Incorrect parameter. Check the request body");
-        }
-
+        tableId = Integer.parseInt(bodyParams.get("tableId"));
+        username = bodyParams.get("username");
+        return ordersService.addOrder(tableId, username);
     }
 
     @GetMapping("/{pageId}")
     @PreAuthorize("hasAuthority('order:read')")
     public @ResponseBody
-    Page<Orders> getOrders(@PathVariable("pageId") int page, @RequestBody(required = false) Map<String, String> bodyParams){
+    Page<Orders> getOrders(@PathVariable("pageId") int page,
+                           @RequestParam(required = false) Map<String, String> bodyParams){
         if (bodyParams == null || bodyParams.isEmpty()) return ordersService.getAllOrders(page);
         else {
              return ordersService.filterOrders(page,bodyParams);

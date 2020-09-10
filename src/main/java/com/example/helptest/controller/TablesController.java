@@ -41,7 +41,7 @@ public class TablesController {
     }
 
     @GetMapping("/table/{tableId}")
-    @PreAuthorize("hasAuthority('user:read')")
+    @PreAuthorize("hasAuthority('table:read')")
     public @ResponseBody
     TablesDTO getTable(@PathVariable("tableId") int table_id){
         return tablesService.getTableById(table_id);
