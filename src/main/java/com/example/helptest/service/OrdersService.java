@@ -27,11 +27,11 @@ public class OrdersService {
     @Autowired
     private UserDAO userDAO;
 
-    public Page<Orders> filterOrders(int page, Map<String, String> filterParams){
+    public Page<Orders> filterOrders(int page, Map<String, String> filterParams) {
 
         Pageable pageable = LocalPagination.getPageable(page, "orderId");
 
-        String status=""; //CREATED - CLOSED // not required
+        String status = ""; //CREATED - CLOSED // not required
         String username = ""; // not required
         LocalDateTime start = LocalDateTime.of(2020, 1, 1, 0, 0); // not required
         LocalDateTime end = LocalDateTime.now(); // not required
@@ -43,78 +43,80 @@ public class OrdersService {
         if (filterParams.containsKey("end")) end = LocalDateTime.parse(filterParams.get("end"));
         if (filterParams.containsKey("tableId")) tableId = Integer.parseInt(filterParams.get("tableId"));
 
-        if (tableId == 0){
-            if (status.isBlank() || status.isEmpty()){
-                if (username.isEmpty() || username.isBlank()){
+        if (tableId == 0) {
+            if (status.isBlank() || status.isEmpty()) {
+                if (username.isEmpty() || username.isBlank()) {
                     return ordersDao.findAllByCreatedAtBetween(pageable, start, end);
-                }else {
-                    return ordersDao.findAllByCreatedAtBetweenAndWaiterUsername(pageable ,start, end, username);
+                } else {
+                    return ordersDao.findAllByCreatedAtBetweenAndWaiterUsername(pageable, start, end, username);
                 }
-            }else{
-                if (username.isEmpty() || username.isBlank()){
+            } else {
+                if (username.isEmpty() || username.isBlank()) {
                     return ordersDao.findAllByCreatedAtBetweenAndOrderStatus(pageable, start, end, status);
-                }else {
-                    return ordersDao.findAllByCreatedAtBetweenAndWaiterUsernameAndOrderStatus(pageable ,start, end, username, status);
+                } else {
+                    return ordersDao.findAllByCreatedAtBetweenAndWaiterUsernameAndOrderStatus(pageable, start, end, username, status);
                 }
             }
-        }
-        else {
-            if (status.isBlank() || status.isEmpty()){
-                if (username.isEmpty() || username.isBlank()){
+        } else {
+            if (status.isBlank() || status.isEmpty()) {
+                if (username.isEmpty() || username.isBlank()) {
                     return ordersDao.findAllByCreatedAtBetweenAndTableId(pageable, start, end, tableId);
-                }else {
-                    return ordersDao.findAllByCreatedAtBetweenAndWaiterUsernameAndTableId(pageable ,start, end, username, tableId);
+                } else {
+                    return ordersDao.findAllByCreatedAtBetweenAndWaiterUsernameAndTableId(pageable, start, end, username, tableId);
                 }
-            }else{
-                if (username.isEmpty() || username.isBlank()){
+            } else {
+                if (username.isEmpty() || username.isBlank()) {
                     return ordersDao.findAllByCreatedAtBetweenAndOrderStatusAndTableId(pageable, start, end, status, tableId);
-                }else {
-                    return ordersDao.findAllByCreatedAtBetweenAndWaiterUsernameAndOrderStatusAndTableId(pageable ,start, end, username, status, tableId);
+                } else {
+                    return ordersDao.findAllByCreatedAtBetweenAndWaiterUsernameAndOrderStatusAndTableId(pageable, start, end, username, status, tableId);
                 }
             }
         }
 
     }
 
-    public Page<Orders> getAllOrders(int page){
+    public Page<Orders> getAllOrders(int page) {
         return ordersDao.findAll(LocalPagination.getPageable(page, "orderId"));
     }
 
-    public Orders getOrder(long orderId){
+    public Orders getOrder(long orderId) {
         try {
             Orders order = ordersDao.findOrdersByOrderId(orderId).get();
-            for (OrderDetail orderDetail: order.getOrderDetails()) {
+            for (OrderDetail orderDetail : order.getOrderDetails()) {
                 ProductForOrder productForOrder = new ProductForOrder(orderDetail.getProduct().getId(),
                         orderDetail.getProduct().getProductName(),
                         orderDetail.getProduct().getCategory(),
-                        orderDetail.getProduct().getUnit());
+                        orderDetail.getProduct().getUnit(),
+                        orderDetail.getProduct().getCost());
                 orderDetail.setProduct(productForOrder);
             }
             return order;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new NotFoundException("Order is not present");
         }
 
     }
 
-    public Orders addOrder(int tableId, String waiterUsername){
+    public Orders addOrder(int tableId, String waiterUsername) {
         Optional<EatingPlace> eatingPlace = eatingPlaceDao.findById(tableId);
         if (eatingPlace.isEmpty()) throw new IllegalArgumentException("Table not found exception!");
-        if (!eatingPlace.get().isActive() || !eatingPlace.get().isReserved()) throw new IllegalArgumentException("Table is not active or not reserved!");
-        if (!eatingPlace.get().getWaiterUsername().equals(waiterUsername)) throw new IllegalArgumentException("Another waiter serves the table!");
+        if (!eatingPlace.get().isActive() || !eatingPlace.get().isReserved())
+            throw new IllegalArgumentException("Table is not active or not reserved!");
+        if (!eatingPlace.get().getWaiterUsername().equals(waiterUsername))
+            throw new IllegalArgumentException("Another waiter serves the table!");
 
         Optional<Orders> openedOrder = ordersDao.findOrdersByOrderStatusAndTableId(OrderStatus.CREATED.name(), tableId);
         if (!openedOrder.isEmpty()) throw new IllegalArgumentException("Table is reserved");
 
         Orders order = new Orders(tableId, waiterUsername);
-        order.setOrderId(ordersDao.count()+1);
+        order.setOrderId(ordersDao.count() + 1);
         order.setCreatedAt(LocalDateTime.now());
         order.setOrderStatus(OrderStatus.CREATED.name());
         order.setWaiterName(eatingPlace.get().getWaiterName());
         return ordersDao.save(order);
     }
 
-    public Orders closeOrder(long orderId){
+    public Orders closeOrder(long orderId) {
         try {
             Orders order = ordersDao.findOrdersByOrderId(orderId).get();
             order.setOrderStatus(OrderStatus.CLOSED.name());
@@ -127,7 +129,7 @@ public class OrdersService {
             eatingPlaceDao.save(eatingPlace);
 
             return ordersDao.save(order);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new NotFoundException(ex.getLocalizedMessage());
         }
     }

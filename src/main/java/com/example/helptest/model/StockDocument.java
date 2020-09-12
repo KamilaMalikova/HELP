@@ -16,7 +16,7 @@ public class StockDocument {
     private LocalDateTime date;
 
     @JsonManagedReference
-    @OneToMany(targetEntity = StockInventory.class, mappedBy = "stockDocument",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = StockInventory.class, mappedBy = "stockDocument", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<StockInventory> inventories;
 
     public long getDocumentId() {

@@ -18,6 +18,7 @@ public interface EatingPlaceDao extends CrudRepository<EatingPlace, Integer>, Pa
     Page<EatingPlace> findAll(Pageable pageable);
 
     List<EatingPlace> findAll();
+
     //find all active tables (shows as pages)
     Page<EatingPlace> findAllByActiveIsTrue(Pageable pageable);
 

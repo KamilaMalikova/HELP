@@ -1,7 +1,7 @@
 package com.example.helptest.exception;
 
 
-public class DuplicateException extends RuntimeException{
+public class DuplicateException extends RuntimeException {
     private static final long serialVersionUID = -7806029002430564887L;
 
     private String message;

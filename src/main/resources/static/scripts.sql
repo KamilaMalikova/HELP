@@ -102,3 +102,6 @@ INSERT INTO application_user_permission(role_id, permission_id) VALUES (4,13);
 INSERT INTO application_user_permission(role_id, permission_id) VALUES (4,17);
 INSERT INTO application_user_permission(role_id, permission_id) VALUES (4,18);
 INSERT INTO application_user_permission(role_id, permission_id) VALUES (4,19);
+
+INSERT INTO owner (id, address, inn, company_name) VALUES (1,'г.Андижан ул.Мустакиллик 1', '123456789','ООО "FOODCOURT"');
+INSERT INTO tip (id, tip) VALUES (1,0.1);

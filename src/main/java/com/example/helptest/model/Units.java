@@ -16,7 +16,7 @@ public class Units implements Serializable {
     }
 
     public Units(long l, String unit) {
-        this.id = (int)l;
+        this.id = (int) l;
         this.unitName = unit;
     }
 

@@ -52,11 +52,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JWTUsernameAndPasswordAuthenticationFilter(authenticationManager(),jwtConfig, secretKey))
+                .addFilter(new JWTUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
                 .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig), JWTUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/v3/api-docs", "/api", "/api.yaml", "/v3/api-docs.yaml", "/swagger-ui/**", "/swagger-ui.html", "/api/**", "index", "/css/*", "/js/*").permitAll()
-              //  .antMatchers("/api/**").hasRole("ADMIN")
+                //  .antMatchers("/api/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
         ;
@@ -68,7 +68,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(applicationUserService);

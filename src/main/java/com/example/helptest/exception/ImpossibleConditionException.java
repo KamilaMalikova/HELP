@@ -1,6 +1,6 @@
 package com.example.helptest.exception;
 
-public class ImpossibleConditionException extends RuntimeException{
+public class ImpossibleConditionException extends RuntimeException {
     private static final long serialVersionUID = -7806024002430564887L;
 
     private String message;

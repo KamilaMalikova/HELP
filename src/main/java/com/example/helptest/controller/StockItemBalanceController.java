@@ -18,35 +18,35 @@ public class StockItemBalanceController {
     @PostMapping
     @PreAuthorize("hasAuthority('product:add')")
     public @ResponseBody
-    StockItemBalance addItem(@RequestBody StockItemBalance stockItemBalance){
+    StockItemBalance addItem(@RequestBody StockItemBalance stockItemBalance) {
         return stockItemBalanceService.addItem(stockItemBalance);
     }
 
     @GetMapping
     @PreAuthorize("hasAuthority('product:read')")
     public @ResponseBody
-    List<StockItemBalance> getAllItems(@RequestParam("id") long id, @RequestParam("category") String category){
+    List<StockItemBalance> getAllItems(@RequestParam("id") long id, @RequestParam("category") String category) {
         return stockItemBalanceService.filter(new Category(id, category));
     }
 
     @GetMapping("/item/{id}")
     @PreAuthorize("hasAuthority('product:read')")
     public @ResponseBody
-    StockItemBalance getItem(@PathVariable("id") long id){
+    StockItemBalance getItem(@PathVariable("id") long id) {
         return stockItemBalanceService.getItem(id);
     }
 
     @PostMapping("/item/{id}")
     @PreAuthorize("hasAuthority('product:write')")
     public @ResponseBody
-    StockItemBalance updateItem(@PathVariable("id")long id,@RequestBody StockItemBalance stockItemBalance){
+    StockItemBalance updateItem(@PathVariable("id") long id, @RequestBody StockItemBalance stockItemBalance) {
         return stockItemBalanceService.updateItem(id, stockItemBalance);
     }
 
     @PostMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('product:delete')")
     public @ResponseBody
-    boolean deleteItem(@PathVariable("id") long id){
+    boolean deleteItem(@PathVariable("id") long id) {
         return stockItemBalanceService.deleteItem(id);
     }
 

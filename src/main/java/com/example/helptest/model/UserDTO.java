@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import java.io.Serializable;
 
 
-public class UserDTO implements Serializable{
+public class UserDTO implements Serializable {
     private int id;
     private String username;
     private String name;

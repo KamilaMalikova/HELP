@@ -1,5 +1,6 @@
 package com.example.helptest.model;
 
+import com.example.helptest.invoice.LineGenerator;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -90,4 +91,12 @@ public class Orders {
     public void setOrderDetails(Set<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
+
+    @Override
+    public String toString() {
+        String data = "Заказ: "+this.getOrderId()+"\n"
+                + LineGenerator.createLine(this.waiterName)+"\n";
+        return data;
+    }
+
 }

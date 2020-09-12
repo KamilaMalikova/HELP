@@ -5,14 +5,14 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class Permissions  {
+public class Permissions {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String permission;
 
-    @ManyToMany(mappedBy = "permissions", fetch = FetchType.EAGER ,cascade = {CascadeType.ALL})
+    @ManyToMany(mappedBy = "permissions", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private Set<ApplicationUserRole> applicationUserPermissions;
 
     public int getId() {

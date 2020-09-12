@@ -24,7 +24,7 @@ public class OrdersController {
     @PostMapping
     @PreAuthorize("hasAuthority('order:add')")
     public @ResponseBody
-    Orders addOrder(@RequestBody Map<String, String> bodyParams){
+    Orders addOrder(@RequestBody Map<String, String> bodyParams) {
         // must have two params
         int tableId;
         String username;
@@ -38,10 +38,10 @@ public class OrdersController {
     @PreAuthorize("hasAuthority('order:read')")
     public @ResponseBody
     Page<Orders> getOrders(@PathVariable("pageId") int page,
-                           @RequestParam(required = false) Map<String, String> bodyParams){
+                           @RequestParam(required = false) Map<String, String> bodyParams) {
         if (bodyParams == null || bodyParams.isEmpty()) return ordersService.getAllOrders(page);
         else {
-             return ordersService.filterOrders(page,bodyParams);
+            return ordersService.filterOrders(page, bodyParams);
         }
 
     }
@@ -49,14 +49,14 @@ public class OrdersController {
     @GetMapping("/order/{orderId}")
     @PreAuthorize("hasAuthority('order:read')")
     public @ResponseBody
-    Orders getOrder(@PathVariable("orderId") long orderId){
+    Orders getOrder(@PathVariable("orderId") long orderId) {
         return ordersService.getOrder(orderId);
     }
 
     @PostMapping("/order/{orderId}")
     @PreAuthorize("hasAuthority('order:delete')")
     public @ResponseBody
-    Orders closeOrder(@PathVariable("orderId") long orderId){
+    Orders closeOrder(@PathVariable("orderId") long orderId) {
         return ordersService.closeOrder(orderId);
     }
 }

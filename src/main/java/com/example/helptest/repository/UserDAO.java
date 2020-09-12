@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserDAO extends CrudRepository<User, Integer> , PagingAndSortingRepository<User, Integer> {
+public interface UserDAO extends CrudRepository<User, Integer>, PagingAndSortingRepository<User, Integer> {
     Optional<User> findUserByUsername(String username);
 
     List<User> findAll();

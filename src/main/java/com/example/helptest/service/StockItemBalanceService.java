@@ -14,48 +14,48 @@ public class StockItemBalanceService {
     @Autowired
     private StockItemBalanceDao stockItemBalanceDao;
 
-    public StockItemBalance addItem(StockItemBalance stockItemBalance){
-        stockItemBalance.setId(stockItemBalanceDao.count()+1);
+    public StockItemBalance addItem(StockItemBalance stockItemBalance) {
+        stockItemBalance.setId(stockItemBalanceDao.count() + 1);
         stockItemBalance.setInStockQty(0.0);
         stockItemBalance.setProductId(0);
         return stockItemBalanceDao.save(stockItemBalance);
     }
 
-    public List<StockItemBalance> filter(Category category){
+    public List<StockItemBalance> filter(Category category) {
         try {
             return stockItemBalanceDao.findAllByCategory(category);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new NotFoundException(ex.getMessage());
         }
     }
 
-    public StockItemBalance getItem(long id){
+    public StockItemBalance getItem(long id) {
         try {
             return stockItemBalanceDao.findStockItemBalanceById(id).get();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new NotFoundException(ex.getLocalizedMessage());
         }
 
     }
 
-    public StockItemBalance updateItem(long id, StockItemBalance stockItemBalance){
+    public StockItemBalance updateItem(long id, StockItemBalance stockItemBalance) {
         try {
             StockItemBalance oldItemBalance = stockItemBalanceDao.findStockItemBalanceById(id).get();
             if (oldItemBalance == null) throw new NotFoundException("Item is not found");
             stockItemBalance.setId(oldItemBalance.getId());
             return stockItemBalanceDao.save(stockItemBalance);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new NotFoundException(ex.getMessage());
         }
     }
 
-    public boolean deleteItem(long id){
+    public boolean deleteItem(long id) {
         try {
             StockItemBalance stockItemBalance = stockItemBalanceDao.findStockItemBalanceById(id).get();
             if (stockItemBalance == null) throw new NotFoundException("Item is not found");
             stockItemBalanceDao.delete(stockItemBalance);
             return true;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new NotFoundException(ex.getMessage());
         }
     }

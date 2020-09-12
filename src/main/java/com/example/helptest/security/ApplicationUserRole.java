@@ -18,7 +18,7 @@ public class ApplicationUserRole implements Serializable {
 
     private String role;
 
-    @ManyToMany(fetch = FetchType.EAGER ,cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(
             name = "application_user_permission",
             joinColumns = @JoinColumn(name = "role_id"),
@@ -61,11 +61,11 @@ public class ApplicationUserRole implements Serializable {
         this.permissions = permissions;
     }
 
-    public Set<SimpleGrantedAuthority> getGrantedAuthorities(){
-        Set<SimpleGrantedAuthority> permissions =  getPermissions().stream()
+    public Set<SimpleGrantedAuthority> getGrantedAuthorities() {
+        Set<SimpleGrantedAuthority> permissions = getPermissions().stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
                 .collect(Collectors.toSet());
-        permissions.add(new SimpleGrantedAuthority("ROLE_"+this.role));
+        permissions.add(new SimpleGrantedAuthority("ROLE_" + this.role));
         return permissions;
     }
 }

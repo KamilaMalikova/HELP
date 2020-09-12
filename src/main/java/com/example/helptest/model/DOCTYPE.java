@@ -4,7 +4,8 @@ public enum DOCTYPE {
     IN("In"), OUT("Out");
 
     private String name;
-    DOCTYPE(String name){
+
+    DOCTYPE(String name) {
         this.name = name;
     }
 

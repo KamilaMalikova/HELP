@@ -33,19 +33,19 @@ public class OrderDetailsService {
     @Autowired
     private OrdersService ordersService;
 
-    public void getOrderDetails(long orderId){
+    public void getOrderDetails(long orderId) {
 
     }
 
-    public Orders addOrderDetails(long orderId, List<OrderWrap> orderWrapList){
+    public Orders addOrderDetails(long orderId, List<OrderWrap> orderWrapList) {
         try {
             List<OrderDetail> orderDetailList = new ArrayList<>();
-            for (OrderWrap orderWrap: orderWrapList) {
-                if (this.checkOrderDetail(orderWrap)){
+            for (OrderWrap orderWrap : orderWrapList) {
+                if (this.checkOrderDetail(orderWrap)) {
                     OrderDetail orderDetail = this.getOrderDetail(orderWrap);
 
                     Product product = orderDetail.getProduct();
-                    product.setInStockQty(product.getInStockQty()-orderDetail.getQuantity());
+                    product.setInStockQty(product.getInStockQty() - orderDetail.getQuantity());
                     productDao.save(product);
 
                     orderDetailsDao.save(orderDetail);
@@ -55,58 +55,60 @@ public class OrderDetailsService {
             }
             //orderDetailsDao.saveAll(orderDetailList);
             return ordersService.getOrder(orderId);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new IllegalArgumentException(ex.getMessage());
         }
 
     }
 
-    private boolean checkOrderDetail(OrderWrap orderWrap){
+    private boolean checkOrderDetail(OrderWrap orderWrap) {
         try {
             Product product = productDao.findProductById(orderWrap.getProductId()).get();
             Orders order = ordersDao.findOrdersByOrderId(orderWrap.getOrderId()).get();
-            if (order.getOrderStatus().equals("CLOSED")) throw new ImpossibleConditionException("The order is closed. It's impossible to add new item to order");
+            if (order.getOrderStatus().equals("CLOSED"))
+                throw new ImpossibleConditionException("The order is closed. It's impossible to add new item to order");
 
             List<OrderDetail> orderDetails = orderDetailsDao.findAllByOrderAndAndProduct(order, product);
 
             if (orderDetails == null || orderDetails.isEmpty()) return true; // can add to list
             else {
                 double dbQty = 0.0;
-                for (OrderDetail orderDetail: orderDetails) {
-                    dbQty+=orderDetail.getQuantity();
+                for (OrderDetail orderDetail : orderDetails) {
+                    dbQty += orderDetail.getQuantity();
                 }
 
                 double resultQty = this.getQtyDifference(dbQty, orderWrap.getQty());
 
-                if (resultQty < 0.0) throw new IllegalArgumentException("You ordered less of "+product.getProductName()+" then want to cancel");
+                if (resultQty < 0.0)
+                    throw new IllegalArgumentException("You ordered less of " + product.getProductName() + " then want to cancel");
                 else return true;
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new IllegalArgumentException(ex.getMessage());
         }
 
     }
 
-    private double getQtyDifference(double a, double b){
-        return a-b;
+    private double getQtyDifference(double a, double b) {
+        return a - b;
     }
 
 
-    private OrderDetail getOrderDetail(OrderWrap orderWrap){
+    private OrderDetail getOrderDetail(OrderWrap orderWrap) {
         try {
             OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setId(orderDetailsDao.count()+1);
+            orderDetail.setId(orderDetailsDao.count() + 1);
             orderDetail.setOrder(ordersDao.findOrdersByOrderId(orderWrap.getOrderId()).get());
             orderDetail.setProduct(productDao.findProductById(orderWrap.getProductId()).get());
             orderDetail.setQuantity(orderWrap.getQty());
             return orderDetail;
-        } catch (Exception ex){
+        } catch (Exception ex) {
             throw new NotFoundException(ex.getMessage());
         }
     }
 
 
-    public void removeOrderDetail(long orderId, long orderDetailId){
+    public void removeOrderDetail(long orderId, long orderDetailId) {
 
     }
 }

@@ -20,24 +20,25 @@ public class OrderDetailsController {
     @Autowired
     private OrderDetailsService orderDetailsService;
 
-    public void getOrderDetails(){
+    public void getOrderDetails() {
 
     }
 
-    public void getOrderDetail(){
+    public void getOrderDetail() {
 
     }
+
     @PostMapping("/{orderId}")
     @PreAuthorize("hasAuthority('order:add')")
     public //@ResponseBody
     Orders addOrderDetails(@PathVariable("orderId") long orderId
-                        ,@RequestBody List<OrderWrap> orderWrapList
-    ){
+            , @RequestBody List<OrderWrap> orderWrapList
+    ) {
 //        System.out.println("-------");
         return orderDetailsService.addOrderDetails(orderId, orderWrapList);
     }
 
-    public void removeOrderDetail(){
+    public void removeOrderDetail() {
 
     }
 }

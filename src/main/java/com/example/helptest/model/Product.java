@@ -30,6 +30,8 @@ public class Product implements Serializable {
     @JoinColumn(name = "category", referencedColumnName = "id")
     protected Category category;
 
+    protected double cost;
+
     public Product() {
     }
 
@@ -95,5 +97,13 @@ public class Product implements Serializable {
 
     public void setRestaurant(boolean restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 }

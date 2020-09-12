@@ -43,7 +43,7 @@ public class User implements Serializable {
     @Column(name = "temp_token")
     private String temp_token;
 
-    private boolean deleted=false;
+    private boolean deleted = false;
 
 //    @OneToMany(targetEntity = EatingPlace.class, mappedBy = "waiter", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private Set<EatingPlace> tables;
@@ -183,7 +183,7 @@ public class User implements Serializable {
                 '}';
     }
 
-    public ApplicationUser getApplicationUser(){
+    public ApplicationUser getApplicationUser() {
         return new ApplicationUser(this);
     }
 

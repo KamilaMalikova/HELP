@@ -22,6 +22,7 @@ public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePassword
     private final AuthenticationManager authenticationManager;
     private final JwtConfig jwtConfig;
     private final SecretKey secretKey;
+
     public JWTUsernameAndPasswordAuthenticationFilter(AuthenticationManager authenticationManager,
                                                       JwtConfig jwtConfig, SecretKey secretKey) {
         this.authenticationManager = authenticationManager;
@@ -39,7 +40,7 @@ public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                     authenticationRequest.getUsername(),
                     authenticationRequest.getPassword()
             );
-            Authentication authenticate =  authenticationManager.authenticate(authentication);
+            Authentication authenticate = authenticationManager.authenticate(authentication);
             return authenticate;
         } catch (IOException e) {
             e.printStackTrace();

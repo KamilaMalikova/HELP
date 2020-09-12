@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @OpenAPIDefinition(info = @Info(title = "Help API", version = "1.0"))
 public class HelptestApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(HelptestApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(HelptestApplication.class, args);
+    }
 
 }

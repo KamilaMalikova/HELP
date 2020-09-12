@@ -3,21 +3,21 @@ info:
   title: Help API
   version: "1.0"
 servers:
-- url: http://192.168.25.107:8081
-  description: Generated server url
+  - url: http://192.168.25.107:8081
+    description: Generated server url
 paths:
   /categories/{pageId}:
     get:
       tags:
-      - category-controller
+        - category-controller
       operationId: getCategories
       parameters:
-      - name: pageId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: pageId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "409":
           description: default response
@@ -58,7 +58,7 @@ paths:
   /categories:
     get:
       tags:
-      - category-controller
+        - category-controller
       operationId: getListCategories
       responses:
         "409":
@@ -101,7 +101,7 @@ paths:
                   $ref: '#/components/schemas/Category'
     post:
       tags:
-      - category-controller
+        - category-controller
       operationId: addCategory
       responses:
         "409":
@@ -143,15 +143,15 @@ paths:
   /categories/category/{categoryId}:
     get:
       tags:
-      - category-controller
+        - category-controller
       operationId: getCategory
       parameters:
-      - name: categoryId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "409":
           description: default response
@@ -191,15 +191,15 @@ paths:
                 $ref: '#/components/schemas/Category'
     post:
       tags:
-      - category-controller
+        - category-controller
       operationId: modifyUnit
       parameters:
-      - name: categoryId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "409":
           description: default response
@@ -240,20 +240,20 @@ paths:
   /menu/:
     get:
       tags:
-      - menu-controller
+        - menu-controller
       operationId: getProducts
       parameters:
-      - name: productName
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: category
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
+        - name: productName
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
       responses:
         "409":
           description: default response
@@ -296,15 +296,15 @@ paths:
   /menu/{productCode}:
     get:
       tags:
-      - menu-controller
+        - menu-controller
       operationId: getProduct
       parameters:
-      - name: productCode
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: productCode
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "409":
           description: default response
@@ -345,15 +345,15 @@ paths:
   /order-details/{orderId}:
     post:
       tags:
-      - order-details-controller
+        - order-details-controller
       operationId: addOrderDetails
       parameters:
-      - name: orderId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
@@ -401,15 +401,15 @@ paths:
   /orders/order/{orderId}:
     get:
       tags:
-      - orders-controller
+        - orders-controller
       operationId: getOrder
       parameters:
-      - name: orderId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "409":
           description: default response
@@ -449,15 +449,15 @@ paths:
                 $ref: '#/components/schemas/Orders'
     post:
       tags:
-      - orders-controller
+        - orders-controller
       operationId: closeOrder
       parameters:
-      - name: orderId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "409":
           description: default response
@@ -498,7 +498,7 @@ paths:
   /orders:
     post:
       tags:
-      - orders-controller
+        - orders-controller
       operationId: addOrder
       responses:
         "409":
@@ -540,15 +540,15 @@ paths:
   /orders/{pageId}:
     get:
       tags:
-      - orders-controller
+        - orders-controller
       operationId: getOrders
       parameters:
-      - name: pageId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: pageId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "409":
           description: default response
@@ -589,26 +589,26 @@ paths:
   /products:
     get:
       tags:
-      - product-controller
+        - product-controller
       operationId: getProducts_2
       parameters:
-      - name: productName
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: category
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-      - name: active
-        in: query
-        required: false
-        schema:
-          type: boolean
-          default: false
+        - name: productName
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: active
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
       responses:
         "409":
           description: default response
@@ -650,7 +650,7 @@ paths:
                   $ref: '#/components/schemas/Product'
     post:
       tags:
-      - product-controller
+        - product-controller
       operationId: addProduct
       responses:
         "409":
@@ -692,15 +692,15 @@ paths:
   /products/product/{productCode}:
     get:
       tags:
-      - product-controller
+        - product-controller
       operationId: getProduct_1
       parameters:
-      - name: productCode
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: productCode
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "409":
           description: default response
@@ -740,15 +740,15 @@ paths:
                 $ref: '#/components/schemas/Product'
     post:
       tags:
-      - product-controller
+        - product-controller
       operationId: modifyProduct
       parameters:
-      - name: productCode
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: productCode
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "409":
           description: default response
@@ -789,32 +789,32 @@ paths:
   /products/{pageId}:
     get:
       tags:
-      - product-controller
+        - product-controller
       operationId: getProducts_1
       parameters:
-      - name: pageId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: productName
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: category
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-      - name: active
-        in: query
-        required: false
-        schema:
-          type: boolean
-          default: false
+        - name: pageId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: productName
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: active
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
       responses:
         "409":
           description: default response
@@ -855,32 +855,32 @@ paths:
   /documents/{pageId}:
     get:
       tags:
-      - stock-document-controller
+        - stock-document-controller
       operationId: getDocuments
       parameters:
-      - name: pageId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: type
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: from
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: to
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
+        - name: pageId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: type
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
       responses:
         "409":
           description: default response
@@ -921,15 +921,15 @@ paths:
   /documents/document/{docId}:
     get:
       tags:
-      - stock-document-controller
+        - stock-document-controller
       operationId: getDocument
       parameters:
-      - name: docId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: docId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "409":
           description: default response
@@ -970,7 +970,7 @@ paths:
   /documents:
     post:
       tags:
-      - stock-document-controller
+        - stock-document-controller
       operationId: addDocument
       requestBody:
         content:
@@ -1017,15 +1017,15 @@ paths:
   /inventory/{docId}:
     post:
       tags:
-      - stock-inventory-controller
+        - stock-inventory-controller
       operationId: addInventories
       parameters:
-      - name: docId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: docId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
@@ -1073,15 +1073,15 @@ paths:
   /items/item/{id}:
     get:
       tags:
-      - stock-item-balance-controller
+        - stock-item-balance-controller
       operationId: getItem
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "409":
           description: default response
@@ -1121,15 +1121,15 @@ paths:
                 $ref: '#/components/schemas/StockItemBalance'
     post:
       tags:
-      - stock-item-balance-controller
+        - stock-item-balance-controller
       operationId: updateItem
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
@@ -1175,20 +1175,20 @@ paths:
   /items:
     get:
       tags:
-      - stock-item-balance-controller
+        - stock-item-balance-controller
       operationId: getAllItems
       parameters:
-      - name: id
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int64
-      - name: category
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
         "409":
           description: default response
@@ -1230,7 +1230,7 @@ paths:
                   $ref: '#/components/schemas/StockItemBalance'
     post:
       tags:
-      - stock-item-balance-controller
+        - stock-item-balance-controller
       operationId: addItem
       requestBody:
         content:
@@ -1277,15 +1277,15 @@ paths:
   /items/delete/{id}:
     post:
       tags:
-      - stock-item-balance-controller
+        - stock-item-balance-controller
       operationId: deleteItem
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "409":
           description: default response
@@ -1326,15 +1326,15 @@ paths:
   /tables/table/{tableId}:
     get:
       tags:
-      - tables-controller
+        - tables-controller
       operationId: getTable
       parameters:
-      - name: tableId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: tableId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "409":
           description: default response
@@ -1374,15 +1374,15 @@ paths:
                 $ref: '#/components/schemas/TablesDTO'
     post:
       tags:
-      - tables-controller
+        - tables-controller
       operationId: updateTable
       parameters:
-      - name: tableId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: tableId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "409":
           description: default response
@@ -1423,25 +1423,25 @@ paths:
   /tables/{pageId}:
     get:
       tags:
-      - tables-controller
+        - tables-controller
       operationId: getAllTables
       parameters:
-      - name: pageId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: reserved
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: username
-        in: query
-        required: false
-        schema:
-          type: string
+        - name: pageId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: reserved
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: username
+          in: query
+          required: false
+          schema:
+            type: string
       responses:
         "409":
           description: default response
@@ -1482,7 +1482,7 @@ paths:
   /tables:
     post:
       tags:
-      - tables-controller
+        - tables-controller
       operationId: addNewTable
       responses:
         "409":
@@ -1524,7 +1524,7 @@ paths:
   /tables/delete:
     post:
       tags:
-      - tables-controller
+        - tables-controller
       operationId: deleteTable
       responses:
         "409":
@@ -1566,15 +1566,15 @@ paths:
   /units/{pageId}:
     get:
       tags:
-      - units-controller
+        - units-controller
       operationId: getUnits
       parameters:
-      - name: pageId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: pageId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "409":
           description: default response
@@ -1615,15 +1615,15 @@ paths:
   /units/unit/{unitId}:
     get:
       tags:
-      - units-controller
+        - units-controller
       operationId: getUnit
       parameters:
-      - name: unitId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: unitId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "409":
           description: default response
@@ -1663,15 +1663,15 @@ paths:
                 $ref: '#/components/schemas/Units'
     post:
       tags:
-      - units-controller
+        - units-controller
       operationId: modifyUnit_1
       parameters:
-      - name: unitId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: unitId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "409":
           description: default response
@@ -1712,7 +1712,7 @@ paths:
   /units:
     get:
       tags:
-      - units-controller
+        - units-controller
       operationId: getUnitsList
       responses:
         "409":
@@ -1755,7 +1755,7 @@ paths:
                   $ref: '#/components/schemas/Units'
     post:
       tags:
-      - units-controller
+        - units-controller
       operationId: addUnit
       responses:
         "409":
@@ -1797,7 +1797,7 @@ paths:
   /users:
     post:
       tags:
-      - user-controller
+        - user-controller
       operationId: addUser
       responses:
         "409":
@@ -1839,15 +1839,15 @@ paths:
   /users/{pageId}:
     get:
       tags:
-      - user-controller
+        - user-controller
       operationId: getAllUsers
       parameters:
-      - name: pageId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: pageId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "409":
           description: default response
@@ -1888,44 +1888,44 @@ paths:
   /users/{username}:
     post:
       tags:
-      - user-controller
+        - user-controller
       operationId: setUserUpdate
       parameters:
-      - name: username
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: password
-        in: query
-        required: false
-        schema:
-          type: string
-          default: ""
-      - name: name
-        in: query
-        required: false
-        schema:
-          type: string
-          default: ""
-      - name: lastname
-        in: query
-        required: false
-        schema:
-          type: string
-          default: ""
-      - name: role
-        in: query
-        required: false
-        schema:
-          type: string
-          default: ""
-      - name: deleted
-        in: query
-        required: false
-        schema:
-          type: boolean
-          default: false
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        - name: lastname
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        - name: role
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        - name: deleted
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
       responses:
         "409":
           description: default response
@@ -1966,14 +1966,14 @@ paths:
   /users/user/{username}:
     get:
       tags:
-      - user-controller
+        - user-controller
       operationId: getUser
       parameters:
-      - name: username
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "409":
           description: default response

@@ -22,14 +22,14 @@ public class UnitsController {
     @GetMapping("/{pageId}")
     @PreAuthorize("hasAuthority('unit:read')")
     public @ResponseBody
-    Page<Units> getUnits(@PathVariable("pageId") int page){
+    Page<Units> getUnits(@PathVariable("pageId") int page) {
         return unitsService.getUnits(page);
     }
 
     @GetMapping
     @PreAuthorize("hasAuthority('unit:read')")
     public @ResponseBody
-    List<Units> getUnitsList(){
+    List<Units> getUnitsList() {
         return unitsService.getUnitsList();
     }
 
@@ -37,17 +37,17 @@ public class UnitsController {
     @GetMapping("/unit/{unitId}")
     @PreAuthorize("hasAuthority('unit:read')")
     public @ResponseBody
-    Units getUnit(@PathVariable("unitId") int unitId){
+    Units getUnit(@PathVariable("unitId") int unitId) {
         return unitsService.getUnit(unitId);
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('unit:add')")
     public @ResponseBody
-    Units addUnit(@RequestBody Map<String, String> bodyParams){
+    Units addUnit(@RequestBody Map<String, String> bodyParams) {
         try {
             return unitsService.addNewUnit(bodyParams.get("unit"));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new IllegalArgumentException(ex.getLocalizedMessage());
         }
 
@@ -56,11 +56,11 @@ public class UnitsController {
     @PostMapping("/unit/{unitId}")
     @PreAuthorize("hasAuthority('unit:write')")
     public @ResponseBody
-    Units modifyUnit(@PathVariable("unitId") int unitId, @RequestBody(required = false) Map<String, String> bodyParams){
+    Units modifyUnit(@PathVariable("unitId") int unitId, @RequestBody(required = false) Map<String, String> bodyParams) {
 
-        if (bodyParams == null){
+        if (bodyParams == null) {
             return unitsService.deleteUnit(unitId);
-        }else {
+        } else {
             String unitName = bodyParams.get("unit");
             return unitsService.updateUnit(unitId, unitName);
         }

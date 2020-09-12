@@ -3,7 +3,7 @@ package com.example.helptest.model;
 import javax.persistence.*;
 
 @Entity
-public class StockItemBalance{
+public class StockItemBalance {
     @Id
     protected long id;
 

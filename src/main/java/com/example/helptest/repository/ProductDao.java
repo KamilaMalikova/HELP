@@ -21,7 +21,7 @@ public interface ProductDao extends CrudRepository<Product, Integer> {
 
     Page<Product> findAllByCategoryAndActiveStatusAndRestaurant(Pageable pageable, Category category, boolean activeStatus, boolean restaurant);
 
-    Page<Product> findAllByProductNameContainingAndCategoryAndActiveStatusAndRestaurant(Pageable pageable, String productName ,Category category, boolean activeStatus, boolean restaurant);
+    Page<Product> findAllByProductNameContainingAndCategoryAndActiveStatusAndRestaurant(Pageable pageable, String productName, Category category, boolean activeStatus, boolean restaurant);
 
     Optional<Product> findProductById(long id);
 

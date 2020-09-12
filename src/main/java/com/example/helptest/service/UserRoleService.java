@@ -10,7 +10,7 @@ public class UserRoleService {
     @Autowired
     private ApplicationUserRoleDAO userRoleDAO;
 
-    public ApplicationUserRole getRoleByRolename(String role){
+    public ApplicationUserRole getRoleByRolename(String role) {
         return userRoleDAO.findApplicationUserRoleByRole(role);
     }
 }

@@ -18,7 +18,7 @@ public class StockInventoryController {
     @PostMapping("/{docId}")
     @PreAuthorize("hasAuthority('document:write')")
     public @ResponseBody
-    StockDocument addInventories(@PathVariable("docId") long docId, @RequestBody List<StockInventory> stockInventoryList){
+    StockDocument addInventories(@PathVariable("docId") long docId, @RequestBody List<StockInventory> stockInventoryList) {
         return stockInventoryService.addInventories(docId, stockInventoryList);
     }
 }

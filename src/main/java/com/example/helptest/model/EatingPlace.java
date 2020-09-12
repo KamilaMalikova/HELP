@@ -10,7 +10,7 @@ public class EatingPlace {
 
     private boolean reserved;
 
-//    @ManyToOne()
+    //    @ManyToOne()
 //    @JoinColumn(name = "username", referencedColumnName = "username", insertable = true, updatable = true)
 //    private User waiter;
     private String waiterUsername;

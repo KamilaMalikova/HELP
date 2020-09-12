@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+
 @RestController
 @RequestMapping("/menu")
 public class MenuController {
@@ -20,10 +21,10 @@ public class MenuController {
     @PreAuthorize("hasAuthority('product:read')")
     public @ResponseBody
     List<Product> getProducts(@RequestParam(value = "productName", required = false) String productName,
-                              @RequestParam(value = "category", required = false) Integer category){
-        if (productName == null && category == null){
+                              @RequestParam(value = "category", required = false) Integer category) {
+        if (productName == null && category == null) {
             return productService.getMenu();
-        }else {
+        } else {
             return productService.getMenu(productName, category);
         }
     }
@@ -31,7 +32,7 @@ public class MenuController {
     @GetMapping("/order")
     @PreAuthorize("hasAuthority('product:read')")
     public @ResponseBody
-    Map<String, List<Product>> getProducts(){
+    Map<String, List<Product>> getProducts() {
         return productService.getMenuOrder();
     }
 
@@ -39,7 +40,7 @@ public class MenuController {
     @GetMapping("/{productCode}")
     @PreAuthorize("hasAuthority('product:read')")
     public @ResponseBody
-    Product getProduct(@PathVariable("productCode") long productCode){
+    Product getProduct(@PathVariable("productCode") long productCode) {
         return productService.getProduct(productCode);
     }
 

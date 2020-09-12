@@ -15,6 +15,8 @@ create table stock_inventory (id bigint not null, amount double precision not nu
 create table stock_item_balance (id bigint not null, in_stock_qty double precision not null, name varchar(255), product_id bigint not null, restaurant bit not null, category integer, unit integer, primary key (id));
 create table units (id integer not null, unit_name varchar(255), primary key (id));
 create table users (user_id integer not null, access_token varchar(255), active integer, creator varchar(255), deleted bit not null, lastname varchar(255), name varchar(255), password varchar(255), temp_token varchar(255), username varchar(255), role varchar(255), primary key (user_id));
+create table owner (id integer not null, address varchar(255), inn varchar(255), company_name varchar(255), primary key (id));
+create table tip (id integer not null, tip double precision not null, primary key (id));
 alter table application_user_role add constraint UK_ktysemtl9mojwd6gc7d4k4a58 unique (role);
 alter table category add constraint UK_oo4xayr0g0mkbajn7n2m3918u unique (category);
 alter table product add constraint UK_383i0awxqlq7pc33hil7afbgo unique (product_name);
@@ -126,3 +128,5 @@ INSERT INTO application_user_permission(role_id, permission_id) VALUES (4,13);
 INSERT INTO application_user_permission(role_id, permission_id) VALUES (4,17);
 INSERT INTO application_user_permission(role_id, permission_id) VALUES (4,18);
 INSERT INTO application_user_permission(role_id, permission_id) VALUES (4,19);
+INSERT INTO owner (id, address, inn, company_name) VALUES (1,'г.Андижан ул.Мустакиллик 1', '123456789','ООО "FOODCOURT"');
+INSERT INTO tip (id, tip) VALUES (1,0.1);

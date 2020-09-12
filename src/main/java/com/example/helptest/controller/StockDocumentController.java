@@ -20,20 +20,22 @@ public class StockDocumentController {
     public @ResponseBody
     Page<StockDocument> getDocuments(@PathVariable("pageId") int page,
                                      @RequestParam(value = "type", required = false) String type,
-                                     @RequestParam(value = "from", required = false)LocalDateTime from,
-                                     @RequestParam(value = "to", required = false) LocalDateTime to){
+                                     @RequestParam(value = "from", required = false) LocalDateTime from,
+                                     @RequestParam(value = "to", required = false) LocalDateTime to) {
         return stockDocumentService.filter(page, type, from, to);
     }
+
     @GetMapping("/document/{docId}")
     @PreAuthorize("hasAuthority('document:read')")
     public @ResponseBody
-    StockDocument getDocument(@PathVariable("docId") long docId){
+    StockDocument getDocument(@PathVariable("docId") long docId) {
         return stockDocumentService.getDocument(docId);
     }
+
     @PostMapping
     @PreAuthorize("hasAuthority('document:add')")
     public @ResponseBody
-    StockDocument addDocument(@RequestBody StockDocument stockDocument){
+    StockDocument addDocument(@RequestBody StockDocument stockDocument) {
         return stockDocumentService.addDocument(stockDocument);
     }
 }

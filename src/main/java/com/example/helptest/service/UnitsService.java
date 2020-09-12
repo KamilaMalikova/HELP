@@ -22,52 +22,52 @@ public class UnitsService {
     @Autowired
     private UnitsDao unitsDao;
 
-    public Units addNewUnit(String unit){
-      //  try {
+    public Units addNewUnit(String unit) {
+        //  try {
         int id;
-        Units temp =  unitsDao.findDistinctTopByOrderByIdDesc();
+        Units temp = unitsDao.findDistinctTopByOrderByIdDesc();
         if (temp == null) id = 1;
-        else id = temp.getId()+1;
+        else id = temp.getId() + 1;
 
-            Units units = new Units(id, unit);
-            return unitsDao.save(units);
+        Units units = new Units(id, unit);
+        return unitsDao.save(units);
 //        }catch (Exception ex){
 //            throw new DuplicateException(ex.getLocalizedMessage());
 //        }
     }
 
-    public Page<Units> getUnits(int page){
+    public Page<Units> getUnits(int page) {
         try {
             return unitsDao.findAll(LocalPagination.getDefaultPageable(page));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new IllegalArgumentException(ex.getLocalizedMessage());
         }
     }
 
-    public Units getUnit(int id){
+    public Units getUnit(int id) {
         try {
             return unitsDao.findUnitsById(id).get();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new NotFoundException(ex.getLocalizedMessage());
         }
     }
 
-    public Units updateUnit(int id, String newUnitName){
+    public Units updateUnit(int id, String newUnitName) {
         try {
             Units unit = unitsDao.findUnitsById(id).get();
             unit.setUnitName(newUnitName);
             return unitsDao.save(unit);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new NotFoundException(ex.getLocalizedMessage());
         }
     }
 
-    public Units deleteUnit(int id){
-        try{
+    public Units deleteUnit(int id) {
+        try {
             Units unit = unitsDao.findUnitsById(id).get();
             unitsDao.delete(unit);
             return unit;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new ConstraintException(ex.getMessage());
         }
     }

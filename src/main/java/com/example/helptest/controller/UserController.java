@@ -32,9 +32,8 @@ public class UserController {
     @GetMapping(value = "/{pageId}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OWNER')")
     public @ResponseBody
-    Page<UserDTO> getAllUsers(@PathVariable("pageId") int pageId)
-    {
-        pageId -=1;
+    Page<UserDTO> getAllUsers(@PathVariable("pageId") int pageId) {
+        pageId -= 1;
         int total = 5;
         Pageable pageable = PageRequest.of(pageId, total, Sort.by("id"));
         Page<UserDTO> usersPaged = userService.filter(pageable);
@@ -46,7 +45,7 @@ public class UserController {
     @GetMapping(path = "user/{username}")
     @PreAuthorize("hasAuthority('user:read')")
     public @ResponseBody
-    UserDTO getUser(@PathVariable("username") String username){
+    UserDTO getUser(@PathVariable("username") String username) {
         return userService.getUserByUsername(username);
     }
 
@@ -60,8 +59,7 @@ public class UserController {
 //                 @RequestParam("username") String username,
 //                 @RequestParam("password") String password,
 //                 @RequestParam("role") String rolename
-            )
-    {
+    ) {
         String rolename = userMap.get("role");
         String username = userMap.get("username");
         String password = userMap.get("password");
@@ -75,19 +73,20 @@ public class UserController {
 
     @PostMapping(path = "/{username}")
     @PreAuthorize("hasAuthority('user:write')")
-    public @ResponseBody UserDTO setUserUpdate(@PathVariable("username") String username,
-                                                @RequestParam(value = "password", required = false, defaultValue = "") String password,
-                                                @RequestParam(value = "name" , required = false, defaultValue = "") String name,
-                                                @RequestParam(value = "lastname", required = false, defaultValue = "") String lastname,
-                                                @RequestParam(value = "role", required = false, defaultValue = "") String rolename,
-                                                @RequestParam(value = "deleted", required = false, defaultValue = "0") boolean deleted
-                                                ){
+    public @ResponseBody
+    UserDTO setUserUpdate(@PathVariable("username") String username,
+                          @RequestParam(value = "password", required = false, defaultValue = "") String password,
+                          @RequestParam(value = "name", required = false, defaultValue = "") String name,
+                          @RequestParam(value = "lastname", required = false, defaultValue = "") String lastname,
+                          @RequestParam(value = "role", required = false, defaultValue = "") String rolename,
+                          @RequestParam(value = "deleted", required = false, defaultValue = "0") boolean deleted
+    ) {
         ApplicationUserRole role;
-        if (!(rolename.isEmpty() || rolename.isBlank())) {role = userRoleService.getRoleByRolename(rolename);
+        if (!(rolename.isEmpty() || rolename.isBlank())) {
+            role = userRoleService.getRoleByRolename(rolename);
             return userService.updateUser(username, lastname, name, role, password, deleted);
-        }else return userService.updateUser(username, lastname, name, null, password, deleted);
+        } else return userService.updateUser(username, lastname, name, null, password, deleted);
     }
-
 
 
 //    public User updateUser(@RequestParam("oldUsername") String oldUsername){

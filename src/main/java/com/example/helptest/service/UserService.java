@@ -19,16 +19,16 @@ public class UserService {
     @Autowired
     private UserDAO userDAO;
 
-    public List<UserDTO> filter(){
-        List<User> users =  userDAO.findAll();
+    public List<UserDTO> filter() {
+        List<User> users = userDAO.findAll();
         List<UserDTO> usersDTO = users.stream()
                 .map(user -> new UserDTO(user))
                 .collect(Collectors.toList());
         return usersDTO;
     }
 
-    public Page<UserDTO> filter(Pageable pageable){
-        Page<User> users =  userDAO.findAll(pageable);
+    public Page<UserDTO> filter(Pageable pageable) {
+        Page<User> users = userDAO.findAll(pageable);
         System.out.println(users.getContent());
         List<User> userList = users.getContent();
         System.out.println(userList);
@@ -38,51 +38,52 @@ public class UserService {
         Page<UserDTO> userDTOPage = users.map(user -> new UserDTO(user));
         return userDTOPage;
     }
-    public UserDTO getUserByUsername(String username){
+
+    public UserDTO getUserByUsername(String username) {
         return new UserDTO(userDAO.findUserByUsername(username).get());
     }
 
-    public User getUser(String username){
+    public User getUser(String username) {
         User user = userDAO.findUserByUsername(username).get();
         if (user == null) throw new NoSuchElementException("User not found");
         return user;
     }
 
-    public User saveUser(User user){
+    public User saveUser(User user) {
         try {
             user.setDeleted(false);
             user.setActive(0);
             User saved_user = userDAO.save(user);
             return saved_user;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new DuplicateException(ex.getMessage());
         }
     }
 
-    public void deleteUser(String username){
+    public void deleteUser(String username) {
         Optional<User> userOptional = userDAO.findUserByUsername(username);
         User user;
-        if (!userOptional.isEmpty()){
+        if (!userOptional.isEmpty()) {
             user = userOptional.get();
-        }else throw new NoSuchElementException();
+        } else throw new NoSuchElementException();
         userDAO.delete(user);
     }
 
-    public UserDTO setUserDeleted(String username){
+    public UserDTO setUserDeleted(String username) {
         Optional<User> userOptional = userDAO.findUserByUsername(username);
         User user;
-        if (!userOptional.isEmpty()){
+        if (!userOptional.isEmpty()) {
             user = userOptional.get();
             user.setDeleted(true);
             UserDTO userDTO = new UserDTO(userDAO.save(user));
             return userDTO;
-        }else throw new NoSuchElementException();
+        } else throw new NoSuchElementException();
     }
 
     public UserDTO updateUser(String username, String lastname, String name, ApplicationUserRole role, String password, boolean deleted) {
         Optional<User> userOptional = userDAO.findUserByUsername(username);
         User user;
-        if (!userOptional.isEmpty()){
+        if (!userOptional.isEmpty()) {
             user = userOptional.get();
             if (notNull(lastname)) user.setLastname(lastname);
             if (notNull(name)) user.setName(name);
@@ -92,10 +93,10 @@ public class UserService {
 //            user.setDeleted(true);
             UserDTO userDTO = new UserDTO(userDAO.save(user));
             return userDTO;
-        }else throw new NoSuchElementException();
+        } else throw new NoSuchElementException();
     }
 
-    private boolean notNull(String value){
+    private boolean notNull(String value) {
         if (value.isBlank() || value.isEmpty()) return false;
         else return true;
     }

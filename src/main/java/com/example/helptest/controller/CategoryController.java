@@ -22,29 +22,30 @@ public class CategoryController {
     @GetMapping("/{pageId}")
     @PreAuthorize("hasAuthority('category:read')")
     public @ResponseBody
-    Page<Category> getCategories(@PathVariable("pageId") int page){
+    Page<Category> getCategories(@PathVariable("pageId") int page) {
         return categoryService.getCategories(page);
     }
 
     @GetMapping
     @PreAuthorize("hasAuthority('category:read')")
     public @ResponseBody
-    List<Category> getListCategories(){
+    List<Category> getListCategories() {
         return categoryService.getListCategories();
     }
+
     @GetMapping("/category/{categoryId}")
     public @ResponseBody
-    Category getCategory(@PathVariable("categoryId") int unitId){
+    Category getCategory(@PathVariable("categoryId") int unitId) {
         return categoryService.getCategory(unitId);
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('category:add')")
     public @ResponseBody
-    Category addCategory(@RequestBody Map<String, String> bodyParams){
+    Category addCategory(@RequestBody Map<String, String> bodyParams) {
         try {
             return categoryService.addNewCategory(bodyParams.get("category"));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new IllegalArgumentException(ex.getLocalizedMessage());
         }
     }
@@ -52,11 +53,11 @@ public class CategoryController {
     @PostMapping("/category/{categoryId}")
     @PreAuthorize("hasAuthority('category:write')")
     public @ResponseBody
-    Category modifyUnit(@PathVariable("categoryId") int unitId, @RequestBody(required = false) Map<String, String> bodyParams){
+    Category modifyUnit(@PathVariable("categoryId") int unitId, @RequestBody(required = false) Map<String, String> bodyParams) {
 
-        if (bodyParams == null){
+        if (bodyParams == null) {
             return categoryService.deleteCategory(unitId);
-        }else {
+        } else {
             String unitName = bodyParams.get("category");
             return categoryService.updateCategory(unitId, unitName);
         }

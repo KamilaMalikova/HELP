@@ -1,6 +1,6 @@
 package com.example.helptest.exception;
 
-public class BigValueException extends RuntimeException{
+public class BigValueException extends RuntimeException {
     private static final long serialVersionUID = -7806029002630564887L;
 
     private String message;

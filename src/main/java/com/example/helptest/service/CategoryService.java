@@ -19,58 +19,59 @@ public class CategoryService {
     @Autowired
     private CategoryDao categoryDao;
 
-    public Category addNewCategory(String categoryName){
+    public Category addNewCategory(String categoryName) {
         try {
             int id;
             Category temp = categoryDao.findDistinctTopByOrderByIdDesc();
             if (temp == null) id = 1;
-            else id = temp.getId()+1;
+            else id = temp.getId() + 1;
             Category category = new Category(id, categoryName);
             return categoryDao.save(category);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new DuplicateException(ex.getLocalizedMessage());
         }
     }
 
-    public Page<Category> getCategories(int page){
+    public Page<Category> getCategories(int page) {
         try {
             return categoryDao.findAll(LocalPagination.getDefaultPageable(page));
-        }catch (Exception ex){
-            throw new IllegalArgumentException(ex.getLocalizedMessage());
-        }
-    }
-    public List<Category> getListCategories(){
-        try {
-            return categoryDao.findAllByOrderById();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new IllegalArgumentException(ex.getLocalizedMessage());
         }
     }
 
-    public Category getCategory(int id){
+    public List<Category> getListCategories() {
+        try {
+            return categoryDao.findAllByOrderById();
+        } catch (Exception ex) {
+            throw new IllegalArgumentException(ex.getLocalizedMessage());
+        }
+    }
+
+    public Category getCategory(int id) {
         try {
             return categoryDao.findCategoryById(id).get();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new NotFoundException(ex.getLocalizedMessage());
         }
     }
 
-    public Category updateCategory(int id, String newUnitName){
+    public Category updateCategory(int id, String newUnitName) {
         try {
             Category category = categoryDao.findCategoryById(id).get();
             category.setCategory(newUnitName);
             return categoryDao.save(category);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new NotFoundException(ex.getLocalizedMessage());
         }
     }
 
-    public Category deleteCategory(int id){
-        try{
+    public Category deleteCategory(int id) {
+        try {
             Category category = categoryDao.findCategoryById(id).get();
             categoryDao.delete(category);
             return category;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new ConstraintException(ex.getMessage());
         }
     }

@@ -1,6 +1,6 @@
 package com.example.helptest.exception;
 
-public class ConstraintException extends RuntimeException{
+public class ConstraintException extends RuntimeException {
 
     private String message;
 

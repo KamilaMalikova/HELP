@@ -1,5 +1,6 @@
 package com.example.helptest.model;
 
+import com.example.helptest.invoice.LineGenerator;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -55,4 +56,18 @@ public class OrderDetail {
     public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
+
+    public double getCost(){
+        return this.getQuantity()*this.getProduct().getCost();
+    }
+    @Override
+    public String toString() {
+        double sum = this.getCost();
+        String cost = this.getQuantity()+" x "+this.getProduct().getCost()+"|"+LineGenerator.customString(Double.toString(sum), 9, true);
+
+        String data = LineGenerator.createLine(this.product.getProductName(), cost)+"\n";
+        return data;
+    }
+
+
 }
