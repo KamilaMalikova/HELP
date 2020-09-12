@@ -28,8 +28,8 @@ public class Invoice {
             invoice+=orderDetail.toString();
             subsum+=orderDetail.getCost();
         }
-
-        tip = subsum*percent;
+        if (this.order.getWaiterUsername().equals("null")) tip = 0.0;
+        else tip = subsum*percent;
 
         invoice+=LineGenerator.dottedLine();
         invoice+=LineGenerator.createLine("Всего: ", Double.toString(subsum))+"\n";

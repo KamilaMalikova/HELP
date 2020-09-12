@@ -5,6 +5,7 @@ import com.example.helptest.invoice.LineGenerator;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -50,9 +51,11 @@ public class Owner {
 
     @Override
     public String toString() {
+        LocalDate date = LocalDateTime.now().toLocalDate();
         LocalTime time = LocalDateTime.now().toLocalTime();
         String data = LineGenerator.createLine(this.companyName)+"\n"
                     +LineGenerator.createLine(this.Address)+"\n"
+                +LineGenerator.createLine(date.toString()+"\n"
                 +LineGenerator.createLine(time.getHour()+":"+((time.getMinute() < 10)? "0"+time.getMinute():time.getMinute()), this.INN)+"\n";
 
         return data;
