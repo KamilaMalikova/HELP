@@ -56,7 +56,7 @@ public class Owner {
         String data = LineGenerator.createLine(this.companyName)+"\n"
                     +LineGenerator.createLine(this.Address)+"\n"
                 +LineGenerator.createLine(date.toString()+"\n"
-                +LineGenerator.createLine(time.getHour()+":"+((time.getMinute() < 10)? "0"+time.getMinute():time.getMinute()), this.INN)+"\n";
+                +LineGenerator.createLine(time.getHour()+":"+((time.getMinute() < 10)? "0"+time.getMinute():time.getMinute()), this.INN))+"\n";
 
         return data;
     }

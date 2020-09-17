@@ -37,6 +37,11 @@ public class ProductService {
             try {
                 product.setCategory(categoryDao.findCategoryById(Integer.parseInt(productParams.get("category"))).get());
                 product.setUnit(unitsDao.findUnitsById(Integer.parseInt(productParams.get("unit"))).get());
+                if (productParams.containsKey("cost")) {
+                    product.setCost(Double.parseDouble(productParams.get("cost")));
+                } else {
+                    product.setCost(0.0);
+                }
             } catch (Exception ex2) {
                 throw new NotFoundException(ex2.getLocalizedMessage());
             }
@@ -46,6 +51,7 @@ public class ProductService {
             product.setActiveStatus(true);
             product.setRestaurant(productParams.get("restaurant").equals("1"));
             product.setProductName(productParams.get("productName"));
+
 
             return productDao.save(product);
         } catch (Exception ex) {
@@ -106,6 +112,7 @@ public class ProductService {
             if (parameters.containsKey("quantity"))
                 product.setInStockQty(Double.parseDouble(parameters.get("quantity")));
             if (parameters.containsKey("restaurant")) product.setRestaurant(parameters.get("restaurant").equals("1"));
+            if (parameters.containsKey("cost")) product.setCost(Double.parseDouble(parameters.get("cost")));
             return productDao.save(product);
         } catch (Exception ex) {
             throw new NotFoundException(ex.getLocalizedMessage());
