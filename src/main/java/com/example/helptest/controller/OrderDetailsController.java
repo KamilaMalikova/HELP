@@ -4,6 +4,8 @@ import com.example.helptest.model.OrderDetail;
 import com.example.helptest.model.OrderWrap;
 import com.example.helptest.model.Orders;
 import com.example.helptest.service.OrderDetailsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -20,14 +22,8 @@ public class OrderDetailsController {
     @Autowired
     private OrderDetailsService orderDetailsService;
 
-    public void getOrderDetails() {
 
-    }
-
-    public void getOrderDetail() {
-
-    }
-
+    @Operation(summary = "Add order details by orderId. Returns order itself.")
     @PostMapping("/{orderId}")
     @PreAuthorize("hasAuthority('order:add')")
     public //@ResponseBody

@@ -21,6 +21,7 @@ public class TipService {
 
     public Tip updateTip(double percent){
         try {
+            if (percent > 1) throw new IllegalArgumentException("Tip percent cannot be more than 1");
             Tip tip = tipDao.findFirstByOrderById();
             tip.setTip(percent);
             return tipDao.save(tip);

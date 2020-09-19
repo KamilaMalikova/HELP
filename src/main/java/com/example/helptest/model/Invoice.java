@@ -43,4 +43,20 @@ public class Invoice {
     public String toString() {
         return getInvoice();
     }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public Orders getOrder() {
+        return order;
+    }
+
+    public double getPercent() {
+        return percent;
+    }
+
+    public double getTip() {
+        return tip;
+    }
 }

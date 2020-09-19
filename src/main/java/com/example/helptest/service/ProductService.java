@@ -184,8 +184,8 @@ public class ProductService {
                 category1 = categoryDao.findCategoryById(category).get();
             }
             if (category1 == null) {
-                return productDao.findAllByProductNameContainingAndRestaurantIsTrue(productName);
-            } else if (productName == null) return productDao.findAllByCategoryAndRestaurantIsTrue(category1);
+                return productDao.findAllByProductNameContainingAndRestaurantIsTrueAndActiveStatusIsTrue(productName);
+            } else if (productName == null) return productDao.findAllByCategoryAndRestaurantIsTrueAndActiveStatusIsTrue(category1);
             else {
                 return productDao.findAllByProductNameContainingAndCategoryAndRestaurantIsTrue(productName, category1);
             }

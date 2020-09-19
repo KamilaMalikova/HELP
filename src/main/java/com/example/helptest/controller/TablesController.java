@@ -7,6 +7,7 @@ import com.example.helptest.model.User;
 import com.example.helptest.model.UserDTO;
 import com.example.helptest.service.EatingPlaceService;
 import com.example.helptest.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,11 +27,14 @@ public class TablesController {
     @Autowired
     private UserService userService;
 
+    @Operation(summary = "Get page of tables.",
+                description = "Reserved status can be 0, 1. Username: username of the waiter.")
     @GetMapping("/{pageId}")
     @PreAuthorize("hasAuthority('table:read')")
     public @ResponseBody
     Page<EatingPlace> getAllTables(@PathVariable("pageId") int page,
-                                   @RequestParam(value = "reserved", required = false) String reserved, @RequestParam(value = "username", required = false) String username) { //reserved = 1|0; waiter = username
+                                   @RequestParam(value = "reserved", required = false) String reserved,
+                                   @RequestParam(value = "username", required = false) String username) { //reserved = 1|0; waiter = username
         if (username == null && reserved == null) return tablesService.getAllActiveTables(page);
         else {
             Map<String, String> bodyParams = new HashMap<>();
@@ -41,6 +45,7 @@ public class TablesController {
         }
     }
 
+    @Operation(summary = "Get table information by tableId.")
     @GetMapping("/table/{tableId}")
     @PreAuthorize("hasAuthority('table:read')")
     public @ResponseBody
@@ -48,6 +53,7 @@ public class TablesController {
         return tablesService.getTableById(table_id);
     }
 
+    @Operation(summary = "Add tables.", description = "Request body requires \"count:\"requiredQty of tables: {\"count:\"\"10\"}")
     @PostMapping
     @PreAuthorize("hasAuthority('table:add')")
     public @ResponseBody
@@ -56,6 +62,10 @@ public class TablesController {
         return tablesService.addNewTable(count);
     }
 
+    @Operation(summary = "Update table information.", description = "request body: {" +
+            "\"reserved:\"\"1\","+
+            "\"username:\"\"waiter\","+
+            "}")
     @PostMapping("/table/{tableId}")
     @PreAuthorize("hasAuthority('table:write')")
     public @ResponseBody
@@ -76,6 +86,7 @@ public class TablesController {
 
     }
 
+    @Operation(summary = "Delete range of tables.", description = "Request body requires count: number of tables to delete: {\"count:\"\"10\"}")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('table:write')")
     public @ResponseBody

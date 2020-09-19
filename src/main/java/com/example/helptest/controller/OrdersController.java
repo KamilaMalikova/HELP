@@ -3,6 +3,7 @@ package com.example.helptest.controller;
 import com.example.helptest.exception.IllegalArgumentException;
 import com.example.helptest.model.Orders;
 import com.example.helptest.service.OrdersService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -21,6 +23,7 @@ public class OrdersController {
     @Autowired
     private OrdersService ordersService;
 
+    @Operation(summary = "Add new order.", description = "Request body parameters: tableId, username")
     @PostMapping
     @PreAuthorize("hasAuthority('order:add')")
     public @ResponseBody
@@ -33,7 +36,13 @@ public class OrdersController {
         username = bodyParams.get("username");
         return ordersService.addOrder(tableId, username);
     }
-
+    @Operation(summary = "Get page of orders.", description = "Empty request parameters: page of orders. Filter request parameters: {" +
+            "\"status\":\"CREATED\"," +
+            "\"username\":\"user\"," +
+            "\"start\":\"2020-09-11T11:00:00\"," +
+            "\"end\":\"2020-10-11T11:42:24.422229\"," +
+            "\"tableId\":\"1\"," +
+            "}")
     @GetMapping("/{pageId}")
     @PreAuthorize("hasAuthority('order:read')")
     public @ResponseBody
@@ -45,7 +54,7 @@ public class OrdersController {
         }
 
     }
-
+    @Operation(summary = "Get order by orderId")
     @GetMapping("/order/{orderId}")
     @PreAuthorize("hasAuthority('order:read')")
     public @ResponseBody
@@ -53,6 +62,7 @@ public class OrdersController {
         return ordersService.getOrder(orderId);
     }
 
+    @Operation(summary = "Close order. Find by orderId")
     @PostMapping("/order/{orderId}")
     @PreAuthorize("hasAuthority('order:delete')")
     public @ResponseBody

@@ -1,6 +1,7 @@
 package com.example.helptest.service;
 
 import com.example.helptest.model.Invoice;
+import com.example.helptest.model.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +33,19 @@ public class PrinterService implements Printable {
     @Autowired
     private TipService tipService;
     public void print(long orderId){
-        Invoice invoice = new Invoice(ownerService.getOwner(), ordersService.getOrder(orderId), tipService.getTip());
+        try {
+            Invoice invoice = new Invoice(ownerService.getOwner(), ordersService.getOrder(orderId), tipService.getTip());
 
-        PrinterService printerService = new PrinterService();
-        System.out.println(printerService.getPrinters());
+            if (!invoice.getOrder().getOrderStatus().equals(OrderStatus.CLOSED.name()))  throw new IllegalArgumentException("Cannot print a bill for opened order");
 
-        printerService.printString("POS-80", invoice.getInvoice());
+            PrinterService printerService = new PrinterService();
+            System.out.println(printerService.getPrinters());
+            printerService.printString("POS-80", invoice.getInvoice());
+        }catch (Exception ex){
+            throw new IllegalArgumentException(ex.getMessage());
+        }
+
+
     }
 
     public List<String> getPrinters(){

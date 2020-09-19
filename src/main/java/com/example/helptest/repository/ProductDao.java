@@ -29,13 +29,19 @@ public interface ProductDao extends CrudRepository<Product, Integer> {
 
     List<Product> findAllByProductNameContainingAndRestaurantIsTrue(String productName);
 
+    List<Product> findAllByProductNameContainingAndRestaurantIsTrueAndActiveStatusIsTrue(String productName);
+
     List<Product> findAllByProductNameContainingAndRestaurantIsTrueOrderByCategoryAsc(String productName);
 
     List<Product> findAllByProductNameContainingAndCategoryAndRestaurantIsTrue(String productName, Category category);
 
+    List<Product> findAllByProductNameContainingAndCategoryAndRestaurantIsTrueAndActiveStatusIsTrue(String productName, Category category);
+
     List<Product> findAllByProductNameContainingAndCategoryAndRestaurantIsTrueOrderByCategoryAsc(String productName, Category category);
 
     List<Product> findAllByCategoryAndRestaurantIsTrue(Category category);
+
+    List<Product> findAllByCategoryAndRestaurantIsTrueAndActiveStatusIsTrue(Category category);
 
     List<Product> findAllByActiveStatusAndRestaurant(boolean active, boolean restaurant);
 

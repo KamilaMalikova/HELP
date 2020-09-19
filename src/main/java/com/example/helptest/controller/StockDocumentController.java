@@ -2,6 +2,7 @@ package com.example.helptest.controller;
 
 import com.example.helptest.model.StockDocument;
 import com.example.helptest.service.StockDocumentService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class StockDocumentController {
     @Autowired
     private StockDocumentService stockDocumentService;
-
+    @Operation(summary = "Get page of stock documents.", description = "Type: (In, Out) . Date format(from - to): 2020-09-11T11:42:24.422229")
     @GetMapping("/{pageId}")
     @PreAuthorize("hasAuthority('document:read')")
     public @ResponseBody
@@ -25,6 +26,7 @@ public class StockDocumentController {
         return stockDocumentService.filter(page, type, from, to);
     }
 
+    @Operation(summary = "Get stock document.")
     @GetMapping("/document/{docId}")
     @PreAuthorize("hasAuthority('document:read')")
     public @ResponseBody
@@ -32,6 +34,7 @@ public class StockDocumentController {
         return stockDocumentService.getDocument(docId);
     }
 
+    @Operation(summary = "Add new stock document.")
     @PostMapping
     @PreAuthorize("hasAuthority('document:add')")
     public @ResponseBody

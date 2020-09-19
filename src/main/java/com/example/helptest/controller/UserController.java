@@ -1,10 +1,12 @@
 package com.example.helptest.controller;
 
+import com.example.helptest.config.LocalPagination;
 import com.example.helptest.model.User;
 import com.example.helptest.model.UserDTO;
 import com.example.helptest.security.ApplicationUserRole;
 import com.example.helptest.service.UserRoleService;
 import com.example.helptest.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,19 +32,20 @@ public class UserController {
     @Autowired
     private UserRoleService userRoleService;
 
+    @Operation(summary = "Get page of users.")
     @GetMapping(value = "/{pageId}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OWNER')")
     public @ResponseBody
     Page<UserDTO> getAllUsers(@PathVariable("pageId") int pageId) {
         pageId -= 1;
-        int total = 5;
-        Pageable pageable = PageRequest.of(pageId, total, Sort.by("id"));
+        Pageable pageable = LocalPagination.getPageableWithTotal(pageId, "id", 5);
         Page<UserDTO> usersPaged = userService.filter(pageable);
 
         //return userService.filter();
         return usersPaged;
     }
 
+    @Operation(summary = "Get user information by username.")
     @GetMapping(path = "user/{username}")
     @PreAuthorize("hasAuthority('user:read')")
     public @ResponseBody
@@ -49,6 +53,14 @@ public class UserController {
         return userService.getUserByUsername(username);
     }
 
+    @Operation(summary = "Add new user.", description = "Request body: {" +
+            "\"role\":\"WAITER\"," +
+            "\"username\":\"username\"," +
+            "\"password\":\"password\"," +
+            "\"name\":\"Name\"," +
+            "\"lastname\":\"Lastname\"," +
+            "\"creator\":\"creator_username\"," +
+            "}")
     @PostMapping
     @PreAuthorize("hasAuthority('user:write')")
     public @ResponseBody
@@ -71,10 +83,11 @@ public class UserController {
         return new UserDTO(userService.saveUser(user));
     }
 
+    @Operation(summary = "Update user information.")
     @PostMapping(path = "/{username}")
     @PreAuthorize("hasAuthority('user:write')")
     public @ResponseBody
-    UserDTO setUserUpdate(@PathVariable("username") String username,
+    UserDTO updateUser(@PathVariable("username") String username,
                           @RequestParam(value = "password", required = false, defaultValue = "") String password,
                           @RequestParam(value = "name", required = false, defaultValue = "") String name,
                           @RequestParam(value = "lastname", required = false, defaultValue = "") String lastname,
