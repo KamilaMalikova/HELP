@@ -39,7 +39,7 @@ public class MenuController {
     }
 
 
-    
+
     @Operation(summary = "Get menu item by product code.")
     @GetMapping("/{productCode}")
     @PreAuthorize("hasAuthority('product:read')")

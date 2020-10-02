@@ -60,7 +60,7 @@ public class CategoryController {
     @PostMapping("/category/{categoryId}")
     @PreAuthorize("hasAuthority('category:write')")
     public @ResponseBody
-    Category modifyUnit(@PathVariable("categoryId") int unitId, @RequestBody(required = false) Map<String, String> bodyParams) {
+    Category modifyCategory(@PathVariable("categoryId") int unitId, @RequestBody(required = false) Map<String, String> bodyParams) {
 
         if (bodyParams == null) {
             return categoryService.deleteCategory(unitId);

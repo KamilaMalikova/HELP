@@ -75,6 +75,7 @@ public class ProductController {
         if (!bodyParams.containsKey("inStockQty")) bodyParams.put("inStockQty", "0.00");
         return productService.addProduct(bodyParams);
     }
+
     @Operation(summary = "Update product.", description = "Request body: {\n" +
             "    \"productName\":\"Product name\",\n" +
             "    \"restaurant\":\"1\",\n" +

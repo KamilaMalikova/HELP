@@ -24,7 +24,6 @@ public class JwtConfig {
         return tokenExpirationAfterDays;
     }
 
-
     public String getAuthorizationHeader() {
         return HttpHeaders.AUTHORIZATION;
     }
