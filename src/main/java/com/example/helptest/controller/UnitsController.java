@@ -6,6 +6,8 @@ import com.example.helptest.service.UnitsService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +32,8 @@ public class UnitsController {
     @Operation(summary = "Get list of units.")
     @GetMapping
     @PreAuthorize("hasAuthority('unit:read')")
-    public @ResponseBody
+    @ResponseBody
+    public
     List<Units> getUnitsList() {
         return unitsService.getUnitsList();
     }
@@ -46,10 +49,10 @@ public class UnitsController {
     @Operation(summary = "Add new unit.", description = "Request body: {\"unit\":\"unitName\"}")
     @PostMapping
     @PreAuthorize("hasAuthority('unit:add')")
-    public @ResponseBody
-    Units addUnit(@RequestBody Map<String, String> bodyParams) {
+
+    public HttpEntity<Units> addUnit(@RequestBody Map<String, String> bodyParams) {
         try {
-            return unitsService.addNewUnit(bodyParams.get("unit"));
+            return ResponseEntity.ok(unitsService.addNewUnit(bodyParams.get("unit")));
         } catch (Exception ex) {
             throw new IllegalArgumentException(ex.getLocalizedMessage());
         }
