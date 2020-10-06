@@ -13,4 +13,10 @@ public interface StockItemBalanceDao extends CrudRepository<StockItemBalance, In
     List<StockItemBalance> findAllByCategory(Category category);
 
     Optional<StockItemBalance> findStockItemBalanceById(long id);
+
+    List<StockItemBalance> findAllByNameLikeAndCategory(String name, Category category);
+
+    List<StockItemBalance> findAllByNameLike(String name);
+
+    List<StockItemBalance> findAll();
 }

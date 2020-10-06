@@ -28,8 +28,13 @@ public class StockItemBalanceController {
     @GetMapping
     @PreAuthorize("hasAuthority('product:read')")
     public @ResponseBody
-    List<StockItemBalance> getAllItems(@RequestParam("id") long id, @RequestParam("category") String category) {
-        return stockItemBalanceService.filter(new Category(id, category));
+    List<StockItemBalance> getAllItems(@RequestParam(value = "id", required = false) Long id,
+                                       @RequestParam(value = "category", required = false) String category,
+                                       @RequestParam(value = "name", required = false) String name) {
+        if (name != null && id != null) return stockItemBalanceService.filter(name, new Category(id, category));
+        else if (id != null)return stockItemBalanceService.filter(new Category(id, category));
+        else if (name != null) return stockItemBalanceService.filter(name);
+        else return stockItemBalanceService.filter();
     }
 
     @Operation(summary = "Get item in stock balance by id.")

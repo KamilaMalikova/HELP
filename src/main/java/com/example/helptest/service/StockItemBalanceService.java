@@ -59,4 +59,16 @@ public class StockItemBalanceService {
             throw new NotFoundException(ex.getMessage());
         }
     }
+
+    public List<StockItemBalance> filter(String name, Category category) {
+        return stockItemBalanceDao.findAllByNameLikeAndCategory(name, category);
+    }
+
+    public List<StockItemBalance> filter(String name){
+        return stockItemBalanceDao.findAllByNameLike(name);
+    }
+
+    public List<StockItemBalance> filter(){
+        return stockItemBalanceDao.findAll();
+    }
 }
