@@ -29,7 +29,7 @@ public class StockDocumentService {
         if (from == null) from = LocalDateTime.of(2020, 1, 1, 0, 0);
         if (to == null) to = LocalDateTime.now();
         if (type == null) return stockDocumentDao.findAllByDateBetween(pageable, from, to);
-        if (!type.equals(DOCTYPE.IN.getName()) || type.equals(DOCTYPE.OUT.getName()))
+        if (!type.equals(DOCTYPE.IN.getName()) && !type.equals(DOCTYPE.OUT.getName()))
             throw new IllegalArgumentException("Type " + type + " is unacceptable!");
         else return stockDocumentDao.findAllByDateBetweenAndDocumentType(pageable, from, to, type);
 //        }catch (Exception ex){
@@ -62,6 +62,10 @@ public class StockDocumentService {
 
     public StockDocument updateDocument(StockDocument stockDocument) {
         return stockDocumentDao.save(stockDocument);
+    }
+
+    public void deleteDocument(StockDocument stockDocument){
+        stockDocumentDao.delete(stockDocument);
     }
 
 }

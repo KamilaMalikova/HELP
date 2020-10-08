@@ -52,4 +52,6 @@ public interface ProductDao extends CrudRepository<Product, Integer> {
     List<Product> findAllByProductNameContainingAndCategoryAndActiveStatusAndRestaurant(String productName, Category category1, boolean active, boolean restaurant);
 
     List<Product> findAllByProductNameContainingAndRestaurantIsTrueOrderByCategory(String productName);
+
+    Optional<Product> findFirstByOrderByIdDesc();
 }

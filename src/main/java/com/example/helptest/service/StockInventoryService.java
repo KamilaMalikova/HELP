@@ -47,45 +47,50 @@ public class StockInventoryService {
     }
 
     private StockInventory in(StockInventory stockInventory) {
-        //  try {
-        StockItemBalance stockItemBalance = stockItemBalanceService.getItem(stockInventory.getProductId());
+        try {
+            StockItemBalance stockItemBalance = stockItemBalanceService.getItem(stockInventory.getProductId());
 
-        if (stockItemBalance == null)
-            throw new NotFoundException("The item " + stockInventory.getProductName() + " does not exists");
+            if (stockItemBalance == null)
+                throw new NotFoundException("The item " + stockInventory.getProductName() + " does not exists");
 
-        stockInventory.setProductName(stockItemBalance.getName());
+            stockInventory.setProductName(stockItemBalance.getName());
 
-        stockItemBalance.setInStockQty(stockItemBalance.getInStockQty() + stockInventory.getAmount());
-        stockItemBalanceService.updateItem(stockItemBalance.getId(), stockItemBalance);
+            stockItemBalance.setInStockQty(stockItemBalance.getInStockQty() + stockInventory.getAmount());
+            stockItemBalanceService.updateItem(stockItemBalance.getId(), stockItemBalance);
 
-        return stockInventoryDao.save(stockInventory);
-//        }catch (Exception ex){
-//            throw new NotFoundException(ex.getMessage());
-//        }
+            return stockInventoryDao.save(stockInventory);
+        }catch (Exception ex){
+            stockDocumentService.deleteDocument(stockInventory.getStockDocument());
+            throw new NotFoundException(ex.getMessage());
+        }
     }
 
     private void out(StockInventory stockInventory) {
-        // try {
-        StockItemBalance stockItemBalance = stockItemBalanceService.getItem(stockInventory.getProductId());
-        Product product = null;
-        if (stockItemBalance.getProductId() == 0) {
-            product = productService.addProduct(stockItemBalance);
-            stockItemBalance.setProductId(product.getId());
-        } else {
-            product = productService.getProduct(stockItemBalance.getProductId());
+        try {
+            StockItemBalance stockItemBalance = stockItemBalanceService.getItem(stockInventory.getProductId());
+            Product product = null;
+            if (stockItemBalance.getProductId() == 0) {
+                product = productService.addProduct(stockItemBalance);
+                stockItemBalance.setProductId(product.getId());
+            } else {
+                product = productService.getProduct(stockItemBalance.getProductId());
+            }
+
+            if (stockItemBalance.getInStockQty() < stockInventory.getAmount()){
+                stockDocumentService.deleteDocument(stockInventory.getStockDocument());
+                throw new BigValueException("There is not enough " + stockItemBalance.getName() + " in stock");
+            }
+
+
+            stockItemBalance.setInStockQty(stockItemBalance.getInStockQty() - stockInventory.getAmount());
+
+            product.setInStockQty(product.getInStockQty() + stockInventory.getAmount());
+            productService.updateProduct(product.getId(), product);
+
+            stockInventoryDao.save(stockInventory);
+        }catch (Exception ex){
+            stockDocumentService.deleteDocument(stockInventory.getStockDocument());
+            throw new NotFoundException(ex.getMessage());
         }
-
-        if (stockItemBalance.getInStockQty() < stockInventory.getAmount())
-            throw new BigValueException("There is not enough " + stockItemBalance.getName() + " in stock");
-
-        stockItemBalance.setInStockQty(stockItemBalance.getInStockQty() - stockInventory.getAmount());
-
-        product.setInStockQty(product.getInStockQty() + stockInventory.getAmount());
-        productService.updateProduct(product.getId(), product);
-
-        stockInventoryDao.save(stockInventory);
-//        }catch (Exception ex){
-//            throw new NotFoundException(ex.getMessage());
-//        }
     }
 }

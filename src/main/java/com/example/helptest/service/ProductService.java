@@ -196,7 +196,11 @@ public class ProductService {
 
     public Product addProduct(StockItemBalance stockItemBalance) {
         Product product = new Product();
-        product.setId(productDao.count() + 1);
+        var ref = new Object() {
+            long id = 0;
+        };
+        productDao.findFirstByOrderByIdDesc().ifPresent(product1 -> ref.id = product1.getId());
+        product.setId(ref.id + 1);
         product.setProductName(stockItemBalance.getName());
         product.setRestaurant(stockItemBalance.isRestaurant());
         product.setInStockQty(0.0);
