@@ -39,7 +39,7 @@ public class EatingPlaceService {
 
     public Page<EatingPlace> getAllActiveTables(int page) {
 //        page -= 1;
-        int total = 5;
+        int total = 20;
 //        Pageable pageable = PageRequest.of(page, total, Sort.by("id"));
         Page<EatingPlace> tablesPage = eatingPlaceDao.findAllByActiveIsTrue(LocalPagination.getPageableWithTotal(page, "id", total));
         //tablesDao.findAllByActiveIsTrue(pageable);

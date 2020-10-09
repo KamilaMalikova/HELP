@@ -26,7 +26,7 @@ public class StockDocumentService {
     public Page<StockDocument> filter(int page, String type, LocalDateTime from, LocalDateTime to) {
 //        try {
         Pageable pageable = LocalPagination.getPageable(page, "documentId");
-        if (from == null) from = LocalDateTime.of(2020, 1, 1, 0, 0);
+        if (from == null) from = LocalDateTime.of(LocalDateTime.now().getYear(), 1, 1, 0, 0);
         if (to == null) to = LocalDateTime.now();
         if (type == null) return stockDocumentDao.findAllByDateBetween(pageable, from, to);
         if (!type.equals(DOCTYPE.IN.getName()) && !type.equals(DOCTYPE.OUT.getName()))

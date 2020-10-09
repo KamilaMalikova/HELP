@@ -9,6 +9,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 @RestController
 @RequestMapping("/documents")
@@ -21,9 +23,10 @@ public class StockDocumentController {
     public @ResponseBody
     Page<StockDocument> getDocuments(@PathVariable("pageId") int page,
                                      @RequestParam(value = "type", required = false) String type,
-                                     @RequestParam(value = "from", required = false) LocalDateTime from,
-                                     @RequestParam(value = "to", required = false) LocalDateTime to) {
-        return stockDocumentService.filter(page, type, from, to);
+                                     @RequestParam(value = "from", required = false) String from,
+                                     @RequestParam(value = "to", required = false) String to) {
+
+        return stockDocumentService.filter(page, type, (from != null) ? LocalDateTime.parse(from) : null, (to != null) ? LocalDateTime.parse(to) : null);
     }
 
     @Operation(summary = "Get stock document.")
