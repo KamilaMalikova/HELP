@@ -13,7 +13,12 @@ public class Invoice {
     private double tip = 0.0;
 
     public Invoice(Owner owner, Orders order, Tip tip) {
-        this.owner = owner;
+        try {
+            this.owner = owner;
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
         this.order = order;
         this.percent = tip.getTip();
     }
@@ -59,4 +64,6 @@ public class Invoice {
     public double getTip() {
         return tip;
     }
+
+
 }

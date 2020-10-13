@@ -25,7 +25,8 @@ public class LineGenerator {
     }
 
     private static String space(int length){
-        return " ".repeat(line-length);
+        String space = " ".repeat(line-length);
+         return space;
     }
 
     public static String dottedLine(){

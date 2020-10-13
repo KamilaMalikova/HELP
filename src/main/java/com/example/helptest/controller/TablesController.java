@@ -49,7 +49,7 @@ public class TablesController {
     @GetMapping("/table/{tableId}")
     @PreAuthorize("hasAuthority('table:read')")
     public @ResponseBody
-    TablesDTO getTable(@PathVariable("tableId") int table_id) {
+    EatingPlace getTable(@PathVariable("tableId") int table_id) {
         return tablesService.getTableById(table_id);
     }
 
@@ -69,7 +69,7 @@ public class TablesController {
     @PostMapping("/table/{tableId}")
     @PreAuthorize("hasAuthority('table:write')")
     public @ResponseBody
-    TablesDTO updateTable(@PathVariable("tableId") int tableId,
+    EatingPlace updateTable(@PathVariable("tableId") int tableId,
                           @RequestBody Map<String, String> bodyParams) {
         try {
             boolean reserved = bodyParams.get("reserved").equals("1");
@@ -83,15 +83,18 @@ public class TablesController {
         }catch (Exception ex){
             throw new NotFoundException(ex.getMessage());
         }
-
     }
 
     @Operation(summary = "Delete range of tables.", description = "Request body requires count: number of tables to delete: {\"count:\"\"10\"}")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('table:write')")
     public @ResponseBody
-    boolean deleteTable(@RequestBody Map<String, String> bodyParam) {
+    long deleteTable(@RequestBody Map<String, String> bodyParam) {
         int count = Integer.parseInt(bodyParam.get("count"));
         return tablesService.deleteTable(count);
+    }
+
+    public @ResponseBody long getNumberOfTables(){
+        return tablesService.countTables();
     }
 }

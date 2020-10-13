@@ -7,7 +7,7 @@ insert into hibernate_sequence values ( 1 );
 insert into hibernate_sequence values ( 1 );
 insert into hibernate_sequence values ( 1 );
 insert into hibernate_sequence values ( 1 );
-create table order_detail (id bigint not null, quantity double precision not null, order_id bigint, product_name varchar(255), primary key (id));
+create table order_detail (id bigint not null, quantity double precision not null, order_id bigint, product_id bigint not null, primary key (id));
 create table orders (order_id bigint not null, created_at datetime(6), order_status varchar(255), table_id integer not null, waiter_name varchar(255), waiter_username varchar(255), primary key (order_id));
 create table owner (id integer not null, address varchar(255), inn varchar(255), company_name varchar(255), primary key (id));
 create table permissions (id integer not null, permission varchar(255), primary key (id));
@@ -25,7 +25,7 @@ alter table units add constraint UK_525csmemmgtoicjcfhcpf3pk0 unique (unit_name)
 alter table application_user_permission add constraint FKbbrnqmg5h5im1y4ps792udnwy foreign key (permission_id) references permissions (id);
 alter table application_user_permission add constraint FKh1t070a09d894lejl4co0ddb5 foreign key (role_id) references application_user_role (id);
 alter table order_detail add constraint FKrws2q0si6oyd6il8gqe2aennc foreign key (order_id) references orders (order_id);
-alter table order_detail add constraint FKje128cdlvce2wrumkw3jg1ggv foreign key (product_name) references product (product_name);
+alter table order_detail add constraint FKje128cdlvce2wrumkw3jg1ggv foreign key (product_id) references product (id);
 alter table product add constraint FKqx9wikktsev17ctu0kcpkrafc foreign key (category) references category (id);
 alter table product add constraint FKqg39x7r9cchovb5uc3omdw3fg foreign key (unit) references units (id);
 alter table stock_inventory add constraint FKgcera8pelhiwjpiul572mk27d foreign key (document_id) references stock_document (document_id);

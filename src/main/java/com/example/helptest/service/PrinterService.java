@@ -32,20 +32,17 @@ public class PrinterService implements Printable {
     private OwnerService ownerService;
     @Autowired
     private TipService tipService;
+
     public void print(long orderId){
         try {
             Invoice invoice = new Invoice(ownerService.getOwner(), ordersService.getOrder(orderId), tipService.getTip());
-
             if (!invoice.getOrder().getOrderStatus().equals(OrderStatus.CLOSED.name()))  throw new IllegalArgumentException("Cannot print a bill for opened order");
-
             PrinterService printerService = new PrinterService();
             System.out.println(printerService.getPrinters());
             printerService.printString("POS-80", invoice.getInvoice());
         }catch (Exception ex){
             throw new IllegalArgumentException(ex.getMessage());
         }
-
-
     }
 
     public List<String> getPrinters(){

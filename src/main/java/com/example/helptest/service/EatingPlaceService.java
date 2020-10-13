@@ -51,10 +51,10 @@ public class EatingPlaceService {
         return eatingTables;
     }
 
-    public TablesDTO getTableById(int table_id) {
+    public EatingPlace getTableById(int table_id) {
         EatingPlace eatingPlace = eatingPlaceDao.findById(table_id).get();
         if (eatingPlace == null) throw new NoSuchElementException();
-        return new TablesDTO(eatingPlace);
+        return eatingPlace;
     }
 
     public TablesDTO addNewTable(int count) {
@@ -68,8 +68,7 @@ public class EatingPlaceService {
         return tablesDTO;
     }
 
-    public boolean deleteTable(int count) {
-
+    public long deleteTable(int count) {
         for (int i = 0; i < count; i++) {
             EatingPlace eatingPlace = eatingPlaceDao.findDistinctTopByOrderByIdDesc();
             if (eatingPlace.isReserved()) throw new IllegalStateException("Table is reserved");
@@ -77,10 +76,10 @@ public class EatingPlaceService {
                 eatingPlaceDao.delete(eatingPlace);
             } else throw new NoSuchElementException();
         }
-        return true;
+        return eatingPlaceDao.count();
     }
 
-    public TablesDTO setReserved(int table_id, User waiter) {
+    public EatingPlace setReserved(int table_id, User waiter) {
         EatingPlace eatingPlace = eatingPlaceDao.findEatingPlaceById(table_id).get();
         if (eatingPlace != null) {
             if (eatingPlace.isReserved()) throw new IllegalArgumentException("Table is already reserved!");
@@ -88,19 +87,24 @@ public class EatingPlaceService {
             eatingPlace.setReserved(true);
             eatingPlace.setWaiterUsername(waiter.getUsername());
             eatingPlace.setWaiterName(waiter.getName() + " " + waiter.getLastname());
-            return new TablesDTO(eatingPlaceDao.save(eatingPlace));
+            return eatingPlaceDao.save(eatingPlace);
         } else throw new NoSuchElementException();
     }
 
 
-    public TablesDTO setNotReserved(int table_id) {
+    public EatingPlace setNotReserved(int table_id) {
         EatingPlace eatingPlace = eatingPlaceDao.findEatingPlaceById(table_id).get();
         if (eatingPlace != null) {
             eatingPlace.setReserved(false);
             eatingPlace.setWaiterUsername("null");
             eatingPlace.setWaiterName("free");
-            return new TablesDTO(eatingPlaceDao.save(eatingPlace));
+            return eatingPlaceDao.save(eatingPlace);
 
         } else throw new NoSuchElementException();
+    }
+
+    public long countTables() {
+        return eatingPlaceDao.count();
+
     }
 }

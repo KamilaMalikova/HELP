@@ -26,6 +26,8 @@ public class OrdersService {
     private EatingPlaceDao eatingPlaceDao;
     @Autowired
     private UserDAO userDAO;
+    @Autowired
+    private PrinterService printerService;
 
     public Page<Orders> filterOrders(int page, Map<String, String> filterParams) {
 
@@ -127,7 +129,7 @@ public class OrdersService {
             eatingPlace.setWaiterUsername("null");
 
             eatingPlaceDao.save(eatingPlace);
-
+            printerService.print(orderId);
             return ordersDao.save(order);
         } catch (Exception ex) {
             throw new NotFoundException(ex.getLocalizedMessage());

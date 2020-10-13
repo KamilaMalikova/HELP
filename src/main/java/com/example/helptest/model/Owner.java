@@ -8,6 +8,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Owner {
@@ -53,10 +54,12 @@ public class Owner {
     public String toString() {
         LocalDate date = LocalDateTime.now().toLocalDate();
         LocalTime time = LocalDateTime.now().toLocalTime();
+        String text_time = time.getHour()+":"+((time.getMinute() < 10) ? ("0"+time.getMinute()) : time.getMinute());
+
         String data = LineGenerator.createLine(this.companyName)+"\n"
                     +LineGenerator.createLine(this.Address)+"\n"
-                +LineGenerator.createLine(date.toString()+"\n"
-                +LineGenerator.createLine(time.getHour()+":"+((time.getMinute() < 10)? "0"+time.getMinute():time.getMinute()), this.INN))+"\n";
+                +LineGenerator.createLine(date.toString())+"\n"
+                +LineGenerator.createLine(text_time, this.INN)+"\n";
 
         return data;
     }
