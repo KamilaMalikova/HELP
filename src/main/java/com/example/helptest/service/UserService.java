@@ -32,9 +32,6 @@ public class UserService {
         System.out.println(users.getContent());
         List<User> userList = users.getContent();
         System.out.println(userList);
-        List<UserDTO> usersDTO = userList.stream()
-                .map(user -> new UserDTO(user))
-                .collect(Collectors.toList());
         Page<UserDTO> userDTOPage = users.map(user -> new UserDTO(user));
         return userDTOPage;
     }
@@ -99,5 +96,23 @@ public class UserService {
     private boolean notNull(String value) {
         if (value.isBlank() || value.isEmpty()) return false;
         else return true;
+    }
+
+    public Page<UserDTO> filter(Pageable pageable, String query, ApplicationUserRole role) {
+        Page<User> users = userDAO.findAllByRole(pageable, role);
+        return getUserDTos(users);
+    }
+
+    public Page<UserDTO> filter(Pageable pageable, String query) {
+        Page<User> users = userDAO.findAllByNameContainingOrLastnameContainingOrUsernameContaining(pageable, query, query, query);
+        return getUserDTos(users);
+    }
+
+    private Page<UserDTO> getUserDTos(Page<User> users){
+        System.out.println(users.getContent());
+        List<User> userList = users.getContent();
+        System.out.println(userList);
+        Page<UserDTO> userDTOPage = users.map(user -> new UserDTO(user));
+        return userDTOPage;
     }
 }

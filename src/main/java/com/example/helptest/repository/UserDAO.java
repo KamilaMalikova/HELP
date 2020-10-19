@@ -2,6 +2,7 @@ package com.example.helptest.repository;
 
 import com.example.helptest.auth.ApplicationUser;
 import com.example.helptest.model.User;
+import com.example.helptest.security.ApplicationUserRole;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -24,5 +25,10 @@ public interface UserDAO extends CrudRepository<User, Integer>, PagingAndSorting
 
     Page<User> findAll(Pageable pageable);
 
+    Page<User> findAllByRole(Pageable pageable, ApplicationUserRole role);
+
+ //   Page<User> findAllByNameContainingOrLastnameContainingOrUsernameContainingAndRole(String name, String lastname, String username, String role, Pageable pageable);
+
+    Page<User> findAllByNameContainingOrLastnameContainingOrUsernameContaining(Pageable pageable, String name, String lastname, String username);
 
 }

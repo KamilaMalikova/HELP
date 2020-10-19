@@ -41,7 +41,7 @@ public class OrderDetailsService {
         try {
             List<OrderDetail> orderDetailList = new ArrayList<>();
             for (OrderWrap orderWrap : orderWrapList) {
-                if (this.checkOrderDetail(orderWrap)) {
+
                     OrderDetail orderDetail = this.getOrderDetail(orderWrap);
 
                     Product product = orderDetail.getProduct();
@@ -51,7 +51,6 @@ public class OrderDetailsService {
                     orderDetailsDao.save(orderDetail);
 
                     orderDetailList.add(orderDetail);
-                }
             }
             //orderDetailsDao.saveAll(orderDetailList);
             return ordersService.getOrder(orderId);

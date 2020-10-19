@@ -36,11 +36,23 @@ public class UserController {
     @GetMapping(value = "/{pageId}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OWNER')")
     public @ResponseBody
-    Page<UserDTO> getAllUsers(@PathVariable("pageId") int pageId) {
-        pageId -= 1;
-        Pageable pageable = LocalPagination.getPageableWithTotal(pageId, "id", 5);
-        Page<UserDTO> usersPaged = userService.filter(pageable);
+    Page<UserDTO> getAllUsers(@PathVariable("pageId") int pageId,
+                              @RequestParam(value = "query", required = false, defaultValue = "") String query,
+                              @RequestParam(value = "role", required = false) String rolename) {
 
+
+        Pageable pageable = LocalPagination.getPageableWithTotal(pageId, "id", 5);
+        Page<UserDTO> usersPaged;
+        if (query.equals("") && rolename == null) usersPaged= userService.filter(pageable);
+        else {
+            if (rolename == null){
+                usersPaged = userService.filter(pageable, query);
+            }else
+            {
+                ApplicationUserRole role = userRoleService.getRoleByRolename(rolename);
+                usersPaged = userService.filter(pageable, query, role);
+            }
+        }
         //return userService.filter();
         return usersPaged;
     }
@@ -88,12 +100,13 @@ public class UserController {
     @PreAuthorize("hasAuthority('user:write')")
     public @ResponseBody
     UserDTO updateUser(@PathVariable("username") String username,
-                          @RequestParam(value = "password", required = false, defaultValue = "") String password,
-                          @RequestParam(value = "name", required = false, defaultValue = "") String name,
-                          @RequestParam(value = "lastname", required = false, defaultValue = "") String lastname,
-                          @RequestParam(value = "role", required = false, defaultValue = "") String rolename,
-                          @RequestParam(value = "deleted", required = false, defaultValue = "0") boolean deleted
-    ) {
+                       @RequestBody   Map<String, String> userMap)
+    {
+         String rolename = userMap.get("role");
+         String password = userMap.get("password");
+         String name = userMap.get("name");
+         String lastname = userMap.get("lastname");
+         boolean deleted = userMap.get("deleted").equals("1");
         ApplicationUserRole role;
         if (!(rolename.isEmpty() || rolename.isBlank())) {
             role = userRoleService.getRoleByRolename(rolename);
