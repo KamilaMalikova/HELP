@@ -45,7 +45,7 @@ public class OrderDetailsService {
                     OrderDetail orderDetail = this.getOrderDetail(orderWrap);
 
                     Product product = orderDetail.getProduct();
-                    product.setInStockQty(product.getInStockQty() - orderDetail.getQuantity());
+                    //product.setInStockQty(product.getInStockQty() - orderDetail.getQuantity());
                     productDao.save(product);
 
                     orderDetailsDao.save(orderDetail);

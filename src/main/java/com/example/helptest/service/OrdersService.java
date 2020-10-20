@@ -6,6 +6,7 @@ import com.example.helptest.exception.NotFoundException;
 import com.example.helptest.model.*;
 import com.example.helptest.repository.EatingPlaceDao;
 import com.example.helptest.repository.OrdersDao;
+import com.example.helptest.repository.TipDao;
 import com.example.helptest.repository.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,9 @@ public class OrdersService {
     private UserDAO userDAO;
     @Autowired
     private PrinterService printerService;
+
+    @Autowired
+    private TipDao tipDao;
 
     public Page<Orders> filterOrders(int page, Map<String, String> filterParams) {
 
@@ -134,5 +138,14 @@ public class OrdersService {
         } catch (Exception ex) {
             throw new NotFoundException(ex.getLocalizedMessage());
         }
+    }
+
+    public OrderReport createReport(LocalDateTime from, LocalDateTime to) {
+        List<Orders> orders = ordersDao.findAllByCreatedAtBetweenAndOrderStatus(from, to, OrderStatus.CLOSED.name());
+        Tip tip = tipDao.findFirstByOrderById();
+        OrderReport report = new OrderReport(tip);
+        orders.stream().
+                forEach(report::addOrderDetails);
+        return report;
     }
 }

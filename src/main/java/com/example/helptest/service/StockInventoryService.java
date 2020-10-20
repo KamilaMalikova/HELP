@@ -81,10 +81,9 @@ public class StockInventoryService {
                 throw new BigValueException("There is not enough " + stockItemBalance.getName() + " in stock");
             }
 
-
             stockItemBalance.setInStockQty(stockItemBalance.getInStockQty() - stockInventory.getAmount());
 
-            product.setInStockQty(product.getInStockQty() + stockInventory.getAmount());
+            //product.setInStockQty(product.getInStockQty() + stockInventory.getAmount());
             productService.updateProduct(product.getId(), product);
 
             stockInventoryDao.save(stockInventory);

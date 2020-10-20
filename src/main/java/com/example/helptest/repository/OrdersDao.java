@@ -40,4 +40,6 @@ public interface OrdersDao extends CrudRepository<Orders, Integer> {
     Optional<Orders> findOrdersByOrderId(long orderId);
 
     Optional<Orders> findOrdersByOrderStatusAndTableId(String status, int tableId);
+
+    List<Orders> findAllByCreatedAtBetweenAndOrderStatus(LocalDateTime start, LocalDateTime end, String orderStatus);
 }

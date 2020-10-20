@@ -1,6 +1,7 @@
 package com.example.helptest.controller;
 
 import com.example.helptest.exception.IllegalArgumentException;
+import com.example.helptest.model.OrderReport;
 import com.example.helptest.model.Orders;
 import com.example.helptest.service.OrdersService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -68,5 +69,12 @@ public class OrdersController {
     public @ResponseBody
     Orders closeOrder(@PathVariable("orderId") long orderId) {
         return ordersService.closeOrder(orderId);
+    }
+
+    @GetMapping("/report")
+    public @ResponseBody
+    OrderReport createReport(@RequestParam(value = "from", required = false) String from,
+                             @RequestParam(value = "to", required = false) String to){
+        return ordersService.createReport(LocalDateTime.parse(from), LocalDateTime.parse(to));
     }
 }

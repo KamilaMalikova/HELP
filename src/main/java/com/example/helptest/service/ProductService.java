@@ -47,7 +47,7 @@ public class ProductService {
             }
 
             product.setCreatedAt(LocalDateTime.now());
-            product.setInStockQty(Double.parseDouble(productParams.get("inStockQty")));
+            //product.setInStockQty(Double.parseDouble(productParams.get("inStockQty")));
             product.setActiveStatus(true);
             product.setRestaurant(productParams.get("restaurant").equals("1"));
             product.setProductName(productParams.get("productName"));
@@ -109,8 +109,8 @@ public class ProductService {
                     throw new IllegalArgumentException(ex.getLocalizedMessage());
                 }
             }
-            if (parameters.containsKey("quantity"))
-                product.setInStockQty(Double.parseDouble(parameters.get("quantity")));
+//            if (parameters.containsKey("quantity"))
+//                product.setInStockQty(Double.parseDouble(parameters.get("quantity")));
             if (parameters.containsKey("restaurant")) product.setRestaurant(parameters.get("restaurant").equals("1"));
             if (parameters.containsKey("cost")) product.setCost(Double.parseDouble(parameters.get("cost")));
             return productDao.save(product);
@@ -213,7 +213,7 @@ public class ProductService {
 
     public Product updateProduct(long productId, Product product) {
         try {
-            Product product1 = productDao.findProductById(productId).get();
+            //Product product1 = productDao.findProductById(productId).get();
             product.setId(productId);
             return productDao.save(product);
         } catch (Exception ex) {
