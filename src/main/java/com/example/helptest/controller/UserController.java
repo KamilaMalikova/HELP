@@ -57,6 +57,14 @@ public class UserController {
         return usersPaged;
     }
 
+    @Operation(summary = "Get list of users.")
+    @GetMapping()
+    public @ResponseBody
+    List<UserDTO> getListUsers() {
+        return userService.filter();
+    }
+
+
     @Operation(summary = "Get user information by username.")
     @GetMapping(path = "user/{username}")
     @PreAuthorize("hasAuthority('user:read')")

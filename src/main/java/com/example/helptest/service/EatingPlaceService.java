@@ -26,11 +26,17 @@ public class EatingPlaceService {
     public Page<EatingPlace> filter(int page, Map<String, String> tableParams) {
         try {
             String waiter_username = tableParams.get("username");
+            boolean reserved = tableParams.get("reserved").equals("1");
+            if (!(waiter_username.equals("null"))){
+//                if (reserved) return eatingPlaceDao.findAllByWaiterNameAndReservedIsTrue(LocalPagination.getPageableWithTotal(page, "id", 20), tableParams.get("username"));
+//                else return eatingPlaceDao.findAllByWaiterNameAndReservedIsFalse(LocalPagination.getPageableWithTotal(page, "id", 20), tableParams.get("username"));
+                return eatingPlaceDao.findAllByReservedAndWaiterUsername(LocalPagination.getPageableWithTotal(page, "id", 20), (tableParams.get("reserved").equals("1")), tableParams.get("username"));
+            }else{
+//                if (reserved) return eatingPlaceDao.findAllByReservedIsTrue(LocalPagination.getPageableWithTotal(page, "id", 20));
+//                else return eatingPlaceDao.findAllByReservedIsFalse(LocalPagination.getPageableWithTotal(page, "id", 20));
+                return eatingPlaceDao.findAllByReserved(LocalPagination.getPageableWithTotal(page, "id", 20), (tableParams.get("reserved").equals("1")));
+            }
 
-            if (!(waiter_username.isEmpty() || waiter_username.isBlank()))
-                return eatingPlaceDao.findAllByReservedAndWaiterUsername(LocalPagination.getPageableWithTotal(page, "id", 20), tableParams.get("reserved").equals("1"), tableParams.get("username"));
-            else
-                return eatingPlaceDao.findAllByReserved(LocalPagination.getPageableWithTotal(page, "id", 20), tableParams.get("reserved").equals("1"));
         } catch (Exception ex) {
             throw new IllegalArgumentException(ex.getLocalizedMessage());
         }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.List;
 
 @RestController
 @RequestMapping("/documents")
@@ -21,7 +22,7 @@ public class StockDocumentController {
     @GetMapping("/{pageId}")
     @PreAuthorize("hasAuthority('document:read')")
     public @ResponseBody
-    Page<StockDocument> getDocuments(@PathVariable("pageId") int page,
+    List<StockDocument> getDocuments(@PathVariable("pageId") int page,
                                      @RequestParam(value = "type", required = false) String type,
                                      @RequestParam(value = "from", required = false) String from,
                                      @RequestParam(value = "to", required = false) String to) {

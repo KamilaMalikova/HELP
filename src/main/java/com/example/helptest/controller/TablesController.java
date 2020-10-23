@@ -33,9 +33,9 @@ public class TablesController {
     @PreAuthorize("hasAuthority('table:read')")
     public @ResponseBody
     Page<EatingPlace> getAllTables(@PathVariable("pageId") int page,
-                                   @RequestParam(value = "reserved", required = false) String reserved,
-                                   @RequestParam(value = "username", required = false) String username) { //reserved = 1|0; waiter = username
-        if (username == null && reserved == null) return tablesService.getAllActiveTables(page);
+                                   @RequestParam(value = "reserved", required = false, defaultValue = "2") String reserved,
+                                   @RequestParam(value = "username", required = false, defaultValue = "null") String username) { //reserved = 1|0; waiter = username
+        if (username.equals("null") && reserved.equals("2")) return tablesService.getAllActiveTables(page);
         else {
             Map<String, String> bodyParams = new HashMap<>();
             bodyParams.put("reserved", reserved);

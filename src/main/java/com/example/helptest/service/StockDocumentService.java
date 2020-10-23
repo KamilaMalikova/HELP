@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -23,15 +24,15 @@ public class StockDocumentService {
     @Autowired
     private StockDocumentDao stockDocumentDao;
 
-    public Page<StockDocument> filter(int page, String type, LocalDateTime from, LocalDateTime to) {
+    public List<StockDocument> filter(int page, String type, LocalDateTime from, LocalDateTime to) {
 //        try {
-        Pageable pageable = LocalPagination.getPageable(page, "documentId");
+//        Pageable pageable = LocalPagination.getPageable(page, "documentId");
         if (from == null) from = LocalDateTime.of(LocalDateTime.now().getYear(), 1, 1, 0, 0);
         if (to == null) to = LocalDateTime.now();
-        if (type == null) return stockDocumentDao.findAllByDateBetween(pageable, from, to);
+        if (type == null) return stockDocumentDao.findAllByDateBetween(from, to);
         if (!type.equals(DOCTYPE.IN.getName()) && !type.equals(DOCTYPE.OUT.getName()))
             throw new IllegalArgumentException("Type " + type + " is unacceptable!");
-        else return stockDocumentDao.findAllByDateBetweenAndDocumentType(pageable, from, to, type);
+        else return stockDocumentDao.findAllByDateBetweenAndDocumentType(from, to, type);
 //        }catch (Exception ex){
 //            System.out.println(ex.getStackTrace().toString());
 //            throw new IllegalArgumentException(ex.getMessage());

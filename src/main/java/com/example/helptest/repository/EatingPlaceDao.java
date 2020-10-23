@@ -36,7 +36,13 @@ public interface EatingPlaceDao extends CrudRepository<EatingPlace, Integer>, Pa
 
     Page<EatingPlace> findAllByReserved(Pageable id, boolean reserved);
 
+    Page<EatingPlace> findAllByReservedIsTrue(Pageable id);
+    Page<EatingPlace> findAllByReservedIsFalse(Pageable id);
+
     EatingPlace findDistinctTopByOrderById();
+
+    Page<EatingPlace> findAllByWaiterNameAndReservedIsTrue(Pageable id, String username);
+    Page<EatingPlace> findAllByWaiterNameAndReservedIsFalse(Pageable id, String username);
 
     Page<EatingPlace> findAllByReservedAndWaiterUsername(Pageable id, boolean reserved, String username);
 
