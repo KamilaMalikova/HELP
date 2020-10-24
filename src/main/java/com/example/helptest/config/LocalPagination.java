@@ -15,7 +15,7 @@ public class LocalPagination {
 
     public static Pageable getDefaultPageable(int page) {
         //page -= 1;
-        int total = 10;
+        int total = 20;
         Pageable pageable = PageRequest.of(page, total, Sort.by("id"));
         return pageable;
     }

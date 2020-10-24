@@ -41,15 +41,11 @@ public class OrderDetailsService {
         try {
             List<OrderDetail> orderDetailList = new ArrayList<>();
             for (OrderWrap orderWrap : orderWrapList) {
-
                     OrderDetail orderDetail = this.getOrderDetail(orderWrap);
-
                     Product product = orderDetail.getProduct();
                     //product.setInStockQty(product.getInStockQty() - orderDetail.getQuantity());
                     productDao.save(product);
-
                     orderDetailsDao.save(orderDetail);
-
                     orderDetailList.add(orderDetail);
             }
             //orderDetailsDao.saveAll(orderDetailList);

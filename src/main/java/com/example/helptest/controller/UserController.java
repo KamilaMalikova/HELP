@@ -41,7 +41,7 @@ public class UserController {
                               @RequestParam(value = "role", required = false) String rolename) {
 
 
-        Pageable pageable = LocalPagination.getPageableWithTotal(pageId, "id", 5);
+        Pageable pageable = LocalPagination.getDefaultPageable(pageId);
         Page<UserDTO> usersPaged;
         if (query.equals("") && rolename == null) usersPaged= userService.filter(pageable);
         else {
