@@ -66,8 +66,8 @@ public class UserController {
 
 
     @Operation(summary = "Get user information by username.")
-    @GetMapping(path = "user/{username}")
-    @PreAuthorize("hasAuthority('user:read')")
+    @GetMapping("/user/{username}")
+//    @PreAuthorize("hasAuthority('user:read')")
     public @ResponseBody
     UserDTO getUser(@PathVariable("username") String username) {
         return userService.getUserByUsername(username);
